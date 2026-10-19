@@ -103,7 +103,15 @@ $('foto').addEventListener('change', async (e) => {
   try { fotoNueva = await achicar(f); vistaPrevia(fotoNueva); msg('m-prod', ''); } catch (er) { msg('m-prod', er.message, true); }
 });
 $('cancelar').onclick = () => { limpiarForm(); msg('m-prod', ''); };
-$('salir').onclick = salir;
+$('salir').onclick = async () => { try { await api('/api/logout', { method: 'POST' }); } catch {} salir(); };
+
+$('f-pass').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  try {
+    await api('/api/password', { method: 'PUT', body: { actual: $('p-actual').value, nueva: $('p-nueva').value } });
+    $('f-pass').reset(); msg('m-pass', 'Contraseña cambiada. Las demás sesiones se cerraron.');
+  } catch (er) { msg('m-pass', er.message, true); }
+});
 
 $('f-login').addEventListener('submit', async (e) => {
   e.preventDefault();

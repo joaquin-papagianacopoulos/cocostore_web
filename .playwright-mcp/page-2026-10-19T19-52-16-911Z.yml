@@ -1,0 +1,224 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]: Envíos a todo el país · Moto en CABA y GBA
+  - banner [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - link "Coco Store BA, inicio" [ref=f2e5] [cursor=pointer]:
+        - /url: /
+        - img "Coco Store BA" [ref=f2e6]
+      - searchbox "Buscar productos" [ref=f2e11]
+      - link "Escribinos" [ref=f2e12] [cursor=pointer]:
+        - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quer%C3%ADa%20hacer%20una%20consulta.
+    - navigation "Categorías" [ref=f2e16]:
+      - generic [ref=f2e17]:
+        - button "Todos" [pressed] [ref=f2e18] [cursor=pointer]
+        - button "Descartables" [ref=f2e19] [cursor=pointer]
+        - button "Recargables" [ref=f2e20] [cursor=pointer]
+        - button "Pods" [ref=f2e21] [cursor=pointer]
+        - button "Líquidos" [ref=f2e22] [cursor=pointer]
+        - button "Perfumes" [ref=f2e23] [cursor=pointer]
+        - button "Otros" [ref=f2e24] [cursor=pointer]
+  - main [ref=f2e25]:
+    - generic [ref=f2e26]:
+      - generic [ref=f2e27]:
+        - generic [ref=f2e28]:
+          - heading "Vapes originales a tu puerta." [level=1] [ref=f2e29]:
+            - text: Vapes originales
+            - generic [ref=f2e30]: a tu puerta.
+          - paragraph [ref=f2e31]: Descartables, recargables, pods y líquidos. Elegí, escribinos por WhatsApp y te lo llevamos.
+          - generic [ref=f2e32]:
+            - link "Ver los vapes" [ref=f2e33] [cursor=pointer]:
+              - /url: "#productos"
+            - link "Pedir por WhatsApp" [ref=f2e34] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quer%C3%ADa%20hacer%20una%20consulta.
+        - img "El coco de Coco Store dándole una patada a una pelota" [ref=f2e36]
+      - generic [ref=f2e37]: "@cocostoreba"
+    - generic [ref=f2e39]:
+      - heading "Qué estás buscando" [level=2] [ref=f2e41]
+      - generic [ref=f2e42]:
+        - button "Descartables 11 productos" [ref=f2e43] [cursor=pointer]:
+          - generic [ref=f2e44]: Descartables
+          - generic [ref=f2e45]: 11 productos
+        - button "Recargables 0 productos" [ref=f2e46] [cursor=pointer]:
+          - generic [ref=f2e47]: Recargables
+          - generic [ref=f2e48]: 0 productos
+        - button "Pods 0 productos" [ref=f2e49] [cursor=pointer]:
+          - generic [ref=f2e50]: Pods
+          - generic [ref=f2e51]: 0 productos
+        - button "Líquidos 0 productos" [ref=f2e52] [cursor=pointer]:
+          - generic [ref=f2e53]: Líquidos
+          - generic [ref=f2e54]: 0 productos
+    - generic [ref=f2e56]:
+      - generic [ref=f2e57]:
+        - heading "Todos los productos" [level=2] [ref=f2e58]
+        - generic [ref=f2e59]: 14 productos
+      - generic [ref=f2e60]:
+        - article [ref=f2e61]:
+          - img "ELFBAR ICE KING 40K BLUE RAZZ ICE" [ref=f2e63]
+          - generic [ref=f2e64]:
+            - generic [ref=f2e65]: Descartables
+            - heading [level=3] [ref=f2e66]:
+              - link "ELFBAR ICE KING 40K BLUE RAZZ ICE" [ref=f2e67] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-blue-razz-ice
+            - generic [ref=f2e68]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e69] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20BLUE%20RAZZ%20ICE%20(%24%C2%A027.000)
+        - article [ref=f2e70]:
+          - img "ELFBAR ICE KING 40K BLUEBERRY" [ref=f2e72]
+          - generic [ref=f2e73]:
+            - generic [ref=f2e74]: Descartables
+            - heading [level=3] [ref=f2e75]:
+              - link "ELFBAR ICE KING 40K BLUEBERRY" [ref=f2e76] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-blueberry
+            - generic [ref=f2e77]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e78] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20BLUEBERRY%20(%24%C2%A027.000)
+        - article [ref=f2e79]:
+          - img "ELFBAR ICE KING 40K BUBBALOO TUTTI FRUTTI" [ref=f2e81]
+          - generic [ref=f2e82]:
+            - generic [ref=f2e83]: Descartables
+            - heading [level=3] [ref=f2e84]:
+              - link "ELFBAR ICE KING 40K BUBBALOO TUTTI FRUTTI" [ref=f2e85] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-bubbaloo-tutti-frutti
+            - generic [ref=f2e86]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e87] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20BUBBALOO%20TUTTI%20FRUTTI%20(%24%C2%A027.000)
+        - article [ref=f2e88]:
+          - img "ELFBAR ICE KING 40K CHERRY FUSE" [ref=f2e90]
+          - generic [ref=f2e91]:
+            - generic [ref=f2e92]: Descartables
+            - heading [level=3] [ref=f2e93]:
+              - link "ELFBAR ICE KING 40K CHERRY FUSE" [ref=f2e94] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-cherry-fuse
+            - generic [ref=f2e95]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e96] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20CHERRY%20FUSE%20(%24%C2%A027.000)
+        - article [ref=f2e97]:
+          - img "ELFBAR ICE KING 40K CRANBERRY PINEAPPLE JUICE" [ref=f2e99]
+          - generic [ref=f2e100]:
+            - generic [ref=f2e101]: Descartables
+            - heading [level=3] [ref=f2e102]:
+              - link "ELFBAR ICE KING 40K CRANBERRY PINEAPPLE JUICE" [ref=f2e103] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-cranberry-pineapple-juice
+            - generic [ref=f2e104]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e105] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20CRANBERRY%20PINEAPPLE%20JUICE%20(%24%C2%A027.000)
+        - article [ref=f2e106]:
+          - img "ELFBAR ICE KING 40K GRAPE ICE" [ref=f2e108]
+          - generic [ref=f2e109]:
+            - generic [ref=f2e110]: Descartables
+            - heading [level=3] [ref=f2e111]:
+              - link "ELFBAR ICE KING 40K GRAPE ICE" [ref=f2e112] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-grape-ice
+            - generic [ref=f2e113]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e114] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20GRAPE%20ICE%20(%24%C2%A027.000)
+        - article [ref=f2e115]:
+          - img "ELFBAR ICE KING 40K GREEN APPLE ICE" [ref=f2e117]
+          - generic [ref=f2e118]:
+            - generic [ref=f2e119]: Descartables
+            - heading [level=3] [ref=f2e120]:
+              - link "ELFBAR ICE KING 40K GREEN APPLE ICE" [ref=f2e121] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-green-apple-ice
+            - generic [ref=f2e122]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e123] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20GREEN%20APPLE%20ICE%20(%24%C2%A027.000)
+        - article [ref=f2e124]:
+          - img "ELFBAR ICE KING 40K PEACH" [ref=f2e126]
+          - generic [ref=f2e127]:
+            - generic [ref=f2e128]: Descartables
+            - heading [level=3] [ref=f2e129]:
+              - link "ELFBAR ICE KING 40K PEACH" [ref=f2e130] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-peach
+            - generic [ref=f2e131]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e132] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20PEACH%20(%24%C2%A027.000)
+        - article [ref=f2e133]:
+          - img "ELFBAR ICE KING 40K STRAWB ICE" [ref=f2e135]
+          - generic [ref=f2e136]:
+            - generic [ref=f2e137]: Descartables
+            - heading [level=3] [ref=f2e138]:
+              - link "ELFBAR ICE KING 40K STRAWB ICE" [ref=f2e139] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-strawb-ice
+            - generic [ref=f2e140]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e141] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20STRAWB%20ICE%20(%24%C2%A027.000)
+        - article [ref=f2e142]:
+          - img "ELFBAR ICE KING 40K STRAWB WATERMELON" [ref=f2e144]
+          - generic [ref=f2e145]:
+            - generic [ref=f2e146]: Descartables
+            - heading [level=3] [ref=f2e147]:
+              - link "ELFBAR ICE KING 40K STRAWB WATERMELON" [ref=f2e148] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-strawb-watermelon
+            - generic [ref=f2e149]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e150] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20STRAWB%20WATERMELON%20(%24%C2%A027.000)
+        - article [ref=f2e151]:
+          - img "ELFBAR ICE KING 40K WATERMELON ICE" [ref=f2e153]
+          - generic [ref=f2e154]:
+            - generic [ref=f2e155]: Descartables
+            - heading [level=3] [ref=f2e156]:
+              - link "ELFBAR ICE KING 40K WATERMELON ICE" [ref=f2e157] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-watermelon-ice
+            - generic [ref=f2e158]: $ 27.000
+            - link "Pedir por WhatsApp" [ref=f2e159] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20WATERMELON%20ICE%20(%24%C2%A027.000)
+        - article [ref=f2e160]:
+          - img "Jasoor by Lattafa" [ref=f2e162]
+          - generic [ref=f2e163]:
+            - generic [ref=f2e164]: Perfumes
+            - heading [level=3] [ref=f2e165]:
+              - link "Jasoor by Lattafa" [ref=f2e166] [cursor=pointer]:
+                - /url: /p/jasoor-by-lattafa
+            - generic [ref=f2e167]: $ 63.300
+            - link "Pedir por WhatsApp" [ref=f2e168] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20Jasoor%20by%20Lattafa%20(%24%C2%A063.300)
+        - article [ref=f2e169]:
+          - img "Noble blush by Lattafa" [ref=f2e171]
+          - generic [ref=f2e172]:
+            - generic [ref=f2e173]: Perfumes
+            - heading [level=3] [ref=f2e174]:
+              - link "Noble blush by Lattafa" [ref=f2e175] [cursor=pointer]:
+                - /url: /p/noble-blush-by-lattafa
+            - generic [ref=f2e176]: $ 46.200
+            - link "Pedir por WhatsApp" [ref=f2e177] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20Noble%20blush%20by%20Lattafa%20(%24%C2%A046.200)
+        - article [ref=f2e178]:
+          - img "Stronger With You Intensely by G. Armani" [ref=f2e180]
+          - generic [ref=f2e181]:
+            - generic [ref=f2e182]: Perfumes
+            - heading [level=3] [ref=f2e183]:
+              - link "Stronger With You Intensely by G. Armani" [ref=f2e184] [cursor=pointer]:
+                - /url: /p/stronger-with-you-intensely-by-g-armani
+            - generic [ref=f2e185]: $ 197.100
+            - link "Pedir por WhatsApp" [ref=f2e186] [cursor=pointer]:
+              - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quiero%20pedir%3A%20Stronger%20With%20You%20Intensely%20by%20G.%20Armani%20(%24%C2%A0197.100)
+    - generic [ref=f2e188]:
+      - heading "Cómo comprar" [level=2] [ref=f2e190]
+      - list [ref=f2e191]:
+        - listitem [ref=f2e192]:
+          - generic [ref=f2e193]: Elegí tu producto
+          - paragraph [ref=f2e194]: Mirá el catálogo y tocá “Pedir” en el que te guste.
+        - listitem [ref=f2e195]:
+          - generic [ref=f2e196]: Escribinos
+          - paragraph [ref=f2e197]: Se abre WhatsApp con el pedido listo. Confirmamos stock y forma de pago.
+        - listitem [ref=f2e198]:
+          - generic [ref=f2e199]: Recibilo
+          - paragraph [ref=f2e200]: Moto en CABA y GBA, o envío a todo el país.
+  - contentinfo [ref=f2e201]:
+    - generic [ref=f2e202]:
+      - generic [ref=f2e203]:
+        - img "Coco Store BA" [ref=f2e204]
+        - paragraph [ref=f2e205]: Importados con envío a todo el país. Vapes, pods, líquidos y perfumes.
+      - generic [ref=f2e206]:
+        - heading "Contacto" [level=4] [ref=f2e207]
+        - link "WhatsApp" [ref=f2e208] [cursor=pointer]:
+          - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quer%C3%ADa%20hacer%20una%20consulta.
+        - link "Instagram @cocostoreba" [ref=f2e209] [cursor=pointer]:
+          - /url: https://www.instagram.com/cocostoreba/
+      - generic [ref=f2e210]:
+        - heading "Envíos" [level=4] [ref=f2e211]
+        - paragraph [ref=f2e212]: Moto en CABA y GBA.
+        - paragraph [ref=f2e213]: Correo a todo el país.
+      - paragraph [ref=f2e214]: Venta exclusiva a mayores de 18 años. Los precios y el stock pueden cambiar sin aviso.
+  - link "Escribinos por WhatsApp" [ref=f2e215] [cursor=pointer]:
+    - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store!%20Quer%C3%ADa%20hacer%20una%20consulta.

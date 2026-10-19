@@ -2,13 +2,14 @@
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>Panel Coco Store</title>
 <link rel="icon" href="/img/mascota.svg">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 <style>
+  [hidden] { display: none !important; }
   body { background: var(--papel); }
   .caja { background: var(--blanco); border: var(--borde); border-radius: var(--radio); padding: 24px; }
   .panel { width: min(760px, 100% - 32px); margin: 24px auto 80px; display: grid; gap: 20px; }
@@ -36,7 +37,7 @@
   .fila b { display: block; line-height: 1.25; }
   .fila small { font-weight: 600; color: #555; }
   .acc { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-  .acc button { height: 36px; padding: 0 12px; border: var(--borde); border-radius: 999px; background: var(--blanco); font-weight: 700; font-size: 13px; }
+  .acc button { height: 40px; min-width: 44px; padding: 0 14px; border: var(--borde); border-radius: 999px; background: var(--blanco); font-weight: 700; font-size: 13px; }
   .acc button:hover { background: var(--negro); color: var(--blanco); }
   .acc .borrar:hover { background: var(--rojo); border-color: var(--rojo); }
   .btn.ghost { background: none; border: 0; color: var(--negro); font-weight: 700; text-decoration: underline; }
@@ -89,6 +90,14 @@
     <label class="campo">Número con código de país, sin + ni espacios<input id="wa" inputmode="numeric" placeholder="Ej: 5491122334455"></label>
     <button class="btn negro" type="submit">Guardar número</button>
     <p class="msg" id="m-conf" role="status"></p>
+  </form>
+
+  <form class="caja" id="f-pass">
+    <h2>Cambiar contraseña</h2>
+    <label class="campo">Contraseña actual<input type="password" id="p-actual" autocomplete="current-password" required></label>
+    <label class="campo">Contraseña nueva (mínimo 10 caracteres)<input type="password" id="p-nueva" autocomplete="new-password" minlength="10" required></label>
+    <button class="btn negro" type="submit">Cambiar contraseña</button>
+    <p class="msg" id="m-pass" role="status"></p>
   </form>
 </main>
 

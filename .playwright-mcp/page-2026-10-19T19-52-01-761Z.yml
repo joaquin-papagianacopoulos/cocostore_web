@@ -1,0 +1,104 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]: Envíos a todo el país · Moto en CABA y GBA
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "Coco Store BA, inicio" [ref=f1e5] [cursor=pointer]:
+        - /url: /
+        - img "Coco Store BA" [ref=f1e6]
+      - link "Escribinos" [ref=f1e7] [cursor=pointer]:
+        - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store%20BA!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20GRAPE%20ICE%20(%24%C2%A027.000)
+  - main [ref=f1e9]:
+    - navigation "Ruta" [ref=f1e10]:
+      - link "Inicio" [ref=f1e11] [cursor=pointer]:
+        - /url: /
+      - text: ›
+      - link "Descartables" [ref=f1e12] [cursor=pointer]:
+        - /url: /
+      - text: › ELFBAR ICE KING 40K GRAPE ICE
+    - article [ref=f1e13]:
+      - img "ELFBAR ICE KING 40K GRAPE ICE" [ref=f1e15]
+      - generic [ref=f1e16]:
+        - generic [ref=f1e17]: Descartables
+        - heading "ELFBAR ICE KING 40K GRAPE ICE" [level=1] [ref=f1e18]
+        - generic [ref=f1e19]: $ 27.000
+        - paragraph [ref=f1e20]: Disponible
+        - link "Pedir por WhatsApp" [ref=f1e21] [cursor=pointer]:
+          - /url: https://wa.me/5401164703346?text=Hola%20Coco%20Store%20BA!%20Quiero%20pedir%3A%20ELFBAR%20ICE%20KING%2040K%20GRAPE%20ICE%20(%24%C2%A027.000)
+        - paragraph [ref=f1e22]: ELFBAR ICE KING 40K GRAPE ICE en Coco Store BA. Se abre WhatsApp con el pedido listo y confirmamos stock y forma de pago. Moto en CABA y GBA, o envío a todo el país.
+    - generic [ref=f1e23]:
+      - heading "Más productos" [level=2] [ref=f1e24]
+      - generic [ref=f1e25]:
+        - article [ref=f1e26]:
+          - img "ELFBAR ICE KING 40K BLUE RAZZ ICE" [ref=f1e28]
+          - generic [ref=f1e29]:
+            - generic [ref=f1e30]: Descartables
+            - heading [level=3] [ref=f1e31]:
+              - link "ELFBAR ICE KING 40K BLUE RAZZ ICE" [ref=f1e32] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-blue-razz-ice
+            - generic [ref=f1e33]: $ 27.000
+        - article [ref=f1e34]:
+          - img "ELFBAR ICE KING 40K BLUEBERRY" [ref=f1e36]
+          - generic [ref=f1e37]:
+            - generic [ref=f1e38]: Descartables
+            - heading [level=3] [ref=f1e39]:
+              - link "ELFBAR ICE KING 40K BLUEBERRY" [ref=f1e40] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-blueberry
+            - generic [ref=f1e41]: $ 27.000
+        - article [ref=f1e42]:
+          - img "ELFBAR ICE KING 40K BUBBALOO TUTTI FRUTTI" [ref=f1e44]
+          - generic [ref=f1e45]:
+            - generic [ref=f1e46]: Descartables
+            - heading [level=3] [ref=f1e47]:
+              - link "ELFBAR ICE KING 40K BUBBALOO TUTTI FRUTTI" [ref=f1e48] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-bubbaloo-tutti-frutti
+            - generic [ref=f1e49]: $ 27.000
+        - article [ref=f1e50]:
+          - img "ELFBAR ICE KING 40K CHERRY FUSE" [ref=f1e52]
+          - generic [ref=f1e53]:
+            - generic [ref=f1e54]: Descartables
+            - heading [level=3] [ref=f1e55]:
+              - link "ELFBAR ICE KING 40K CHERRY FUSE" [ref=f1e56] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-cherry-fuse
+            - generic [ref=f1e57]: $ 27.000
+        - article [ref=f1e58]:
+          - img "ELFBAR ICE KING 40K CRANBERRY PINEAPPLE JUICE" [ref=f1e60]
+          - generic [ref=f1e61]:
+            - generic [ref=f1e62]: Descartables
+            - heading [level=3] [ref=f1e63]:
+              - link "ELFBAR ICE KING 40K CRANBERRY PINEAPPLE JUICE" [ref=f1e64] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-cranberry-pineapple-juice
+            - generic [ref=f1e65]: $ 27.000
+        - article [ref=f1e66]:
+          - img "ELFBAR ICE KING 40K GREEN APPLE ICE" [ref=f1e68]
+          - generic [ref=f1e69]:
+            - generic [ref=f1e70]: Descartables
+            - heading [level=3] [ref=f1e71]:
+              - link "ELFBAR ICE KING 40K GREEN APPLE ICE" [ref=f1e72] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-green-apple-ice
+            - generic [ref=f1e73]: $ 27.000
+        - article [ref=f1e74]:
+          - img "ELFBAR ICE KING 40K PEACH" [ref=f1e76]
+          - generic [ref=f1e77]:
+            - generic [ref=f1e78]: Descartables
+            - heading [level=3] [ref=f1e79]:
+              - link "ELFBAR ICE KING 40K PEACH" [ref=f1e80] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-peach
+            - generic [ref=f1e81]: $ 27.000
+        - article [ref=f1e82]:
+          - img "ELFBAR ICE KING 40K STRAWB ICE" [ref=f1e84]
+          - generic [ref=f1e85]:
+            - generic [ref=f1e86]: Descartables
+            - heading [level=3] [ref=f1e87]:
+              - link "ELFBAR ICE KING 40K STRAWB ICE" [ref=f1e88] [cursor=pointer]:
+                - /url: /p/elfbar-ice-king-40k-strawb-ice
+            - generic [ref=f1e89]: $ 27.000
+  - contentinfo [ref=f1e90]:
+    - generic [ref=f1e91]:
+      - img "Coco Store BA" [ref=f1e93]
+      - generic [ref=f1e94]:
+        - heading "Contacto" [level=4] [ref=f1e95]
+        - link "Instagram @cocostoreba" [ref=f1e96] [cursor=pointer]:
+          - /url: https://www.instagram.com/cocostoreba/
+        - link "Ver toda la tienda" [ref=f1e97] [cursor=pointer]:
+          - /url: /
+      - paragraph [ref=f1e98]: Venta exclusiva a mayores de 18 años. Los precios y el stock pueden cambiar sin aviso.

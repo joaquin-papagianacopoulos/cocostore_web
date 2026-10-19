@@ -1,0 +1,25 @@
+/* Ficha de producto (/p/...) */
+.migas { overflow-wrap: anywhere; font-size: 14px; font-weight: 600; color: #555; padding-block: 18px 0; }
+.migas a { color: inherit; text-decoration: none; }
+.migas a:hover { color: var(--rojo); }
+.migas span { color: var(--negro); }
+.ficha { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); padding-block: 24px 48px; align-items: start; }
+.ficha-foto { border: var(--borde); border-radius: var(--radio); overflow: hidden; aspect-ratio: 1; display: grid; place-items: center; background: var(--blanco); }
+.ficha-foto img { width: 100%; height: 100%; object-fit: contain; }
+.ficha-foto img.vacia { width: 40%; height: auto; opacity: .9; }
+.ficha-info { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.ficha-info .cat-nombre { font-size: 14px; font-weight: 600; color: #555; }
+.ficha-info h1 { font-size: clamp(26px, 3.6vw, 42px); font-weight: 900; letter-spacing: -.025em; line-height: 1.1; }
+.ficha-info .precio { font-size: clamp(28px, 3.4vw, 38px); font-weight: 900; color: var(--rojo); }
+.estado { font-weight: 800; font-size: 14px; padding: 4px 12px; border-radius: 999px; border: var(--borde); }
+.estado.si { background: var(--papel); }
+.estado.no { background: var(--negro); color: var(--blanco); }
+.ficha-info .btn { margin-top: 6px; }
+.ficha-info .btn[aria-disabled="true"] { background: #555; border-color: #555; }
+.ficha-info .texto { font-weight: 500; max-width: 38em; margin-top: 8px; }
+.otros { padding-block: 8px 56px; }
+.otros h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 900; letter-spacing: -.025em; margin-bottom: 22px; }
+.prod h3 a { color: inherit; text-decoration: none; }
+.prod h3 a:hover { color: var(--rojo); }
+@media (max-width: 799px) { .ficha-info .btn { width: 100%; } .ficha-foto { aspect-ratio: 1; } }
+@media (min-width: 800px) { .ficha { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }

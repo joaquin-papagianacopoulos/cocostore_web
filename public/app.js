@@ -54,7 +54,9 @@ function tarjeta(p) {
   foto.append(img);
   if (p.agotado) foto.append(el('span', 'cinta', 'Agotado'));
   const info = el('div', 'info');
-  info.append(el('span', 'cat-nombre', p.categoria), el('h3', '', p.nombre),
+  const h3 = el('h3');
+  if (p.slug) { const l = el('a', '', p.nombre); l.href = '/p/' + p.slug; h3.append(l); } else h3.textContent = p.nombre;
+  info.append(el('span', 'cat-nombre', p.categoria), h3,
     el('div', 'precio', p.precio > 0 ? peso.format(p.precio) : 'Consultar precio'));
   const a = el('a', 'btn', p.agotado ? 'Sin stock' : 'Pedir por WhatsApp');
   a.href = linkPedido(`Hola Coco Store! Quiero pedir: ${p.nombre}${p.precio > 0 ? ' (' + peso.format(p.precio) + ')' : ''}`);
