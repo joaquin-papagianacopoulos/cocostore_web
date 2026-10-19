@@ -85,9 +85,9 @@ function editar(p) {
 }
 
 async function cargar() {
-  productos = await fetch('/api/products').then((r) => r.json());
+  productos = await fetch('/api/products?t=' + Date.now()).then((r) => r.json());
   pintarLista();
-  const c = await fetch('/api/config').then((r) => r.json());
+  const c = await fetch('/api/config?t=' + Date.now()).then((r) => r.json());
   $('wa').value = c.whatsapp || '';
 }
 
@@ -108,7 +108,8 @@ $('salir').onclick = async () => { try { await api('/api/logout', { method: 'POS
 $('f-pass').addEventListener('submit', async (e) => {
   e.preventDefault();
   try {
-    await api('/api/password', { method: 'PUT', body: { actual: $('p-actual').value, nueva: $('p-nueva').value } });
+    const d = await api('/api/password', { method: 'PUT', body: { actual: $('p-actual').value, nueva: $('p-nueva').value } });
+    if (d.token) { token = d.token; try { sessionStorage.setItem('cocoTok', token); } catch {} } // en Netlify el cambio renueva la sesión
     $('f-pass').reset(); msg('m-pass', 'Contraseña cambiada. Las demás sesiones se cerraron.');
   } catch (er) { msg('m-pass', er.message, true); }
 });

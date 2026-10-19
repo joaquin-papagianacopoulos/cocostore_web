@@ -1,0 +1,11 @@
+node_modules/
+.playwright-mcp/
+.netlify/
+.env
+
+# Contraseña (hash) del panel: nunca al repositorio
+data/admin.json
+
+# Se generan en el build de Netlify (scripts/netlify-prep.js)
+public/uploads/
+netlify/lib/generated.json
