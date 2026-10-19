@@ -1,0 +1,128 @@
+[
+  {
+    "id": "db07f28d-4058-4f84-a6cc-127133368158",
+    "nombre": "ELFBAR ICE KING 40K BLUE RAZZ ICE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-blue-razz-ice.png",
+    "agotado": false,
+    "creado": 1792436804686
+  },
+  {
+    "id": "46c66f2a-3b8e-4b53-a12a-fe77548462a7",
+    "nombre": "ELFBAR ICE KING 40K BLUEBERRY",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/3accd961-55d8-4e9f-a3e3-0a52ed025dca.jpg",
+    "agotado": false,
+    "creado": 1792436804685
+  },
+  {
+    "id": "9b9f477b-b2ab-4cd0-b3ae-5abb8f5ae751",
+    "nombre": "ELFBAR ICE KING 40K BUBBALOO TUTTI FRUTTI",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/24db920e-213b-46e7-92f7-ba0bfec04af2.jpg",
+    "agotado": false,
+    "creado": 1792436804684
+  },
+  {
+    "id": "2eb453e0-c607-4d19-9be9-43277a0b15ac",
+    "nombre": "ELFBAR ICE KING 40K CHERRY FUSE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-cherry-fuse.png",
+    "agotado": false,
+    "creado": 1792436804683
+  },
+  {
+    "id": "9110fabd-81df-40a1-b20e-2a867dce3533",
+    "nombre": "ELFBAR ICE KING 40K CRANBERRY PINEAPPLE JUICE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-cranberry-pineapple-juice.png",
+    "agotado": false,
+    "creado": 1792436804682
+  },
+  {
+    "id": "cd0d102d-c350-4b94-a4cf-bb9aede5e5b1",
+    "nombre": "ELFBAR ICE KING 40K GRAPE ICE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-grape-ice.png",
+    "agotado": false,
+    "creado": 1792436804681
+  },
+  {
+    "id": "33994dc2-26b1-4837-8992-05945945a8e6",
+    "nombre": "ELFBAR ICE KING 40K GREEN APPLE ICE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-green-apple-ice.png",
+    "agotado": false,
+    "creado": 1792436804680
+  },
+  {
+    "id": "030ca0ee-6ef1-42bc-a4bc-332ce567cde1",
+    "nombre": "ELFBAR ICE KING 40K PEACH",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-peach.png",
+    "agotado": false,
+    "creado": 1792436804679
+  },
+  {
+    "id": "065dc790-4b92-4420-b799-265e78abf2ed",
+    "nombre": "ELFBAR ICE KING 40K STRAWB ICE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-strawb-ice.png",
+    "agotado": false,
+    "creado": 1792436804678
+  },
+  {
+    "id": "df0f24aa-4235-411a-8c96-08d766719046",
+    "nombre": "ELFBAR ICE KING 40K STRAWB WATERMELON",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-strawb-watermelon.png",
+    "agotado": false,
+    "creado": 1792436804677
+  },
+  {
+    "id": "004d2a50-1d5a-4419-9cb3-171c14d8eda8",
+    "nombre": "ELFBAR ICE KING 40K WATERMELON ICE",
+    "precio": 27000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/elfbar-watermelon-ice.png",
+    "agotado": false,
+    "creado": 1792436804676
+  },
+  {
+    "id": "e31e3d34-f66c-47d9-9a5e-1037edb85911",
+    "nombre": "Jasoor by Lattafa",
+    "precio": 63300,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/jasoor-lattafa.jpg",
+    "agotado": false,
+    "creado": 1792436804675
+  },
+  {
+    "id": "64ea151b-f901-4f9a-be87-f03837e8f5f1",
+    "nombre": "Noble blush by Lattafa",
+    "precio": 46200,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/noble-blush-lattafa.jpg",
+    "agotado": false,
+    "creado": 1792436804674
+  },
+  {
+    "id": "bbc2ca41-73c4-453a-ad2b-ca3f137118fd",
+    "nombre": "Stronger With You Intensely by G. Armani",
+    "precio": 197100,
+    "categoria": "Perfumes",
+    "imagen": "",
+    "agotado": false,
+    "creado": 1792436804673
+  }
+]

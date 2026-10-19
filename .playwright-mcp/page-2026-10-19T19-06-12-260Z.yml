@@ -1,0 +1,44 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - complementary [ref=f4e3]:
+      - generic [ref=f4e4]: CocoStore APP
+      - navigation "Principal" [ref=f4e5]:
+        - list [ref=f4e6]:
+          - listitem [ref=f4e7]:
+            - link "Dashboard" [ref=f4e8] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f4e9]:
+            - link "Punto de venta" [ref=f4e10] [cursor=pointer]:
+              - /url: /pos
+          - listitem [ref=f4e11]:
+            - link "Pedidos" [ref=f4e12] [cursor=pointer]:
+              - /url: /pedidos
+          - listitem [ref=f4e13]:
+            - link "Ventas" [ref=f4e14] [cursor=pointer]:
+              - /url: /ventas
+          - listitem [ref=f4e15]:
+            - link "Productos" [ref=f4e16] [cursor=pointer]:
+              - /url: /productos
+          - listitem [ref=f4e17]:
+            - link "Stock" [ref=f4e18] [cursor=pointer]:
+              - /url: /stock
+          - listitem [ref=f4e19]:
+            - link "Promociones" [ref=f4e20] [cursor=pointer]:
+              - /url: /promociones
+          - listitem [ref=f4e21]:
+            - link "Clientes" [ref=f4e22] [cursor=pointer]:
+              - /url: /clientes
+          - listitem [ref=f4e23]:
+            - link "Gastos" [ref=f4e24] [cursor=pointer]:
+              - /url: /gastos
+          - listitem [ref=f4e25]:
+            - link "Configuración" [ref=f4e26] [cursor=pointer]:
+              - /url: /configuracion
+      - button "Salir" [ref=f4e29]
+    - main [ref=f4e30]:
+      - status [ref=f4e31]:
+        - generic [ref=f4e32]: Cargando…
+  - alert [ref=f4e47]
+  - iframe [ref=f4e48]:
+    - button "Powered by Netlify — build your own site" [ref=f5e3] [cursor=pointer]:
+      - generic [ref=f5e13]: Powered by Netlify
