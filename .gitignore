@@ -9,3 +9,6 @@ data/admin.json
 # Se generan en el build de Netlify (scripts/netlify-prep.js)
 public/uploads/
 netlify/lib/generated.json
+
+# Videos pesados (GitHub rechaza archivos de mas de 100 MB)
+marketing/**/*.mp4
