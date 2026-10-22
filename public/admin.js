@@ -30,11 +30,14 @@ function achicar(file) {
       const c = document.createElement('canvas');
       c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
       const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
-      URL.revokeObjectURL(img.src);
       ok(c.toDataURL('image/jpeg', 0.85));
     };
     img.onerror = () => fail(new Error('No se pudo leer la foto'));
-    img.src = URL.createObjectURL(file);
+    // data: URL en vez de blob:, porque la CSP (img-src 'self' data:) bloquea blob:
+    const lector = new FileReader();
+    lector.onload = () => { img.src = lector.result; };
+    lector.onerror = () => fail(new Error('No se pudo leer la foto'));
+    lector.readAsDataURL(file);
   });
 }
 
