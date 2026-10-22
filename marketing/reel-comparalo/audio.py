@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Música (beat con aire árabe, escala hijaz en Re), efectos y voz en off → build/mix.wav.
 
-Uso:  py -3.11 marketing/reel-perfumes/audio.py   (después de tts.py)
+Uso:  py -3.11 marketing/reel-comparalo/audio.py   (después de tts.py)
 Todo se sintetiza acá: no usa samples ni música con derechos.
 """
 import math

@@ -14,7 +14,7 @@ import edge_tts
 HERE = os.path.dirname(os.path.abspath(__file__))
 BUILD = os.path.join(HERE, "build")
 VOICE = "es-AR-TomasNeural"
-RATE = "+20%"
+RATE = "+27%"
 
 # id de escena → texto de la voz en off
 LINES = [
