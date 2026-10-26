@@ -24,10 +24,18 @@ export const baseUrl = (req) => (process.env.SITE_URL || '').replace(/\/+$/, '')
 
 // ---------- Datos ----------
 // Primera vez: se siembra desde el catálogo del repo. Si Blobs falla, se propaga el error (nunca se pisa con el catálogo inicial).
+// Después, los productos que se agreguen al repo se suman una sola vez (la lista 'sembrados' recuerda cuáles ya entraron,
+// así lo editado o borrado desde el panel no vuelve a aparecer).
 export async function productos() {
   const s = store();
   let p = await s.get('products', { type: 'json' });
   if (p === null) { p = generated.products; await s.setJSON('products', p); }
+  const previos = await s.get('sembrados', { type: 'json' });
+  const sembrados = previos || p.map((x) => x.id);
+  const vistos = new Set([...sembrados, ...p.map((x) => x.id)]);
+  const nuevos = generated.products.filter((x) => !vistos.has(x.id));
+  if (nuevos.length) { p = [...nuevos, ...p]; await s.setJSON('products', p); }
+  if (nuevos.length || !previos) await s.setJSON('sembrados', [...sembrados, ...nuevos.map((x) => x.id)]);
   return p;
 }
 export const guardarProductos = (lista) => store().setJSON('products', lista);

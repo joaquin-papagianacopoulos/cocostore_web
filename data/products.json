@@ -1,5 +1,122 @@
 [
   {
+    "id": "5b266bfa-e38b-4c49-adc3-1def432bd332",
+    "nombre": "ELFBAR EBCREATE 40K WATERMELON ICE",
+    "precio": 18000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/ebcreate-watermelon-ice.jpg",
+    "agotado": false,
+    "creado": 1793056388635
+  },
+  {
+    "id": "28c3e62f-6b62-4832-bbdc-ac698d49c600",
+    "nombre": "ELFBAR EBCREATE 40K PINEAPPLE POMELO",
+    "precio": 18000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/ebcreate-pineapple-pomelo.jpg",
+    "agotado": false,
+    "creado": 1793056388634
+  },
+  {
+    "id": "75ea2101-f6cf-4c36-abfa-64999e026653",
+    "nombre": "ELFBAR EBCREATE 40K RASPBERRY MALLO",
+    "precio": 18000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/ebcreate-raspberry-mallo.jpg",
+    "agotado": false,
+    "creado": 1793056388633
+  },
+  {
+    "id": "46679dae-7574-4703-9c55-72f33b9d3132",
+    "nombre": "ELFBAR EBCREATE 40K BLUE RAZZ ICE",
+    "precio": 18000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/ebcreate-blue-razz-ice.jpg",
+    "agotado": false,
+    "creado": 1793056388632
+  },
+  {
+    "id": "a3db4b60-7c7f-412e-af7b-d5925b3bc804",
+    "nombre": "One Million Gold Elixir",
+    "precio": 227000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/million-gold-elixir-rabanne.jpg",
+    "agotado": false,
+    "creado": 1793056388631
+  },
+  {
+    "id": "d77edcad-1e0c-49a8-8a79-2632fa89356d",
+    "nombre": "Hawas for him",
+    "precio": 63500,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/hawas-for-him-rasasi.jpg",
+    "agotado": false,
+    "creado": 1793056388630
+  },
+  {
+    "id": "356666e1-e99b-4e59-98c2-e4c3bd6d7c52",
+    "nombre": "Hawas Ice",
+    "precio": 85000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/hawas-ice-rasasi.jpg",
+    "agotado": false,
+    "creado": 1793056388629
+  },
+  {
+    "id": "fd00a826-5e2f-42f0-a374-ffb2861a9950",
+    "nombre": "La vie est belle",
+    "precio": 232000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/la-vie-est-belle-lancome.jpg",
+    "agotado": false,
+    "creado": 1793056388628
+  },
+  {
+    "id": "c61b60e1-c9b8-4224-a04a-d83d11533c74",
+    "nombre": "Yara Elixir",
+    "precio": 63500,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/yara-elixir-lattafa.jpg",
+    "agotado": false,
+    "creado": 1793056388627
+  },
+  {
+    "id": "51e455c1-00ee-4642-9e3b-e22c0a9679ec",
+    "nombre": "Qaed al fursan negro by Lattafa",
+    "precio": 46000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/qaed-al-fursan-lattafa.jpg",
+    "agotado": false,
+    "creado": 1793056388626
+  },
+  {
+    "id": "53a69ccb-9ffe-4c8a-a94e-65384beaaad8",
+    "nombre": "Qaed al fursan unlimited by Lattafa",
+    "precio": 46000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/qaed-al-fursan-unlimited-lattafa.jpg",
+    "agotado": false,
+    "creado": 1793056388625
+  },
+  {
+    "id": "26d331eb-c920-48ce-b629-1c0e445f7330",
+    "nombre": "Lattafa Badee al oud Sublime",
+    "precio": 67000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/badee-al-oud-sublime-lattafa.jpg",
+    "agotado": false,
+    "creado": 1793056388624
+  },
+  {
+    "id": "9ffabc85-3998-4cf3-af96-b8e56c7706c1",
+    "nombre": "JEAN PAUL GAULTIER SCANDAL EDT 100ml + Mini decant Scandal 20ml 🎁",
+    "precio": 220000,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/scandal-jean-paul-gaultier.jpg",
+    "agotado": false,
+    "creado": 1793056388623
+  },
+  {
     "id": "db07f28d-4058-4f84-a6cc-127133368158",
     "nombre": "ELFBAR ICE KING 40K BLUE RAZZ ICE",
     "precio": 27000,
