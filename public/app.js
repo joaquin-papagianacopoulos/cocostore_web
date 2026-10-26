@@ -75,8 +75,8 @@ function pintar() {
   const q = texto.trim().toLowerCase();
   const lista = productos
     .filter((p) => (filtro === 'Todos' || p.categoria === filtro) && (!q || p.nombre.toLowerCase().includes(q)))
-    // agrupa por categoría y deja los agotados al final de cada una (el sort es estable)
-    .sort((a, b) => CATEGORIAS.indexOf(a.categoria) - CATEGORIAS.indexOf(b.categoria) || Number(!!a.agotado) - Number(!!b.agotado));
+    // los agotados van siempre al final de todo; el resto se agrupa por categoría (el sort es estable)
+    .sort((a, b) => Number(!!a.agotado) - Number(!!b.agotado) || CATEGORIAS.indexOf(a.categoria) - CATEGORIAS.indexOf(b.categoria));
   $('t-prod').textContent = filtro === 'Todos' ? 'Todos los productos' : filtro;
   $('cuenta').textContent = lista.length === 1 ? '1 producto' : `${lista.length} productos`;
   const g = $('grilla');

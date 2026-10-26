@@ -63,7 +63,7 @@ ${jsonLd({ '@context': 'https://schema.org', '@type': 'Store', name: NOMBRE, url
 ${jsonLd({ '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: productos.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${base}/p/${p.slug}`, name: p.nombre })) })}`;
   return html
     .replace(/<title>[^<]*<\/title>\s*<meta name="description"[^>]*>/, head)
-    .replace('<div class="grilla" id="grilla" aria-live="polite"></div>', `<div class="grilla" id="grilla" aria-live="polite">${productos.map(tarjetaHtml).join('')}</div>`);
+    .replace('<div class="grilla" id="grilla" aria-live="polite"></div>', `<div class="grilla" id="grilla" aria-live="polite">${[...productos].sort((a, b) => !!a.agotado - !!b.agotado).map(tarjetaHtml).join('')}</div>`);
 }
 
 // ---------- Producto ----------
@@ -80,7 +80,7 @@ function producto(p, { base, productos, whatsapp }) {
     { '@type': 'ListItem', position: 2, name: p.categoria, item: base + '/' },
     { '@type': 'ListItem', position: 3, name: p.nombre, item: url }] };
   const msg = `Hola ${NOMBRE}! Quiero pedir: ${p.nombre}${precioTxt ? ' (' + precioTxt + ')' : ''}`;
-  const relacionados = productos.filter((x) => x.id !== p.id).sort((a, b) => (b.categoria === p.categoria) - (a.categoria === p.categoria)).slice(0, 8);
+  const relacionados = productos.filter((x) => x.id !== p.id).sort((a, b) => !!a.agotado - !!b.agotado || (b.categoria === p.categoria) - (a.categoria === p.categoria)).slice(0, 8);
   const foto = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" width="900" height="900">` : '<img class="vacia" src="/img/mascota.svg" alt="">';
   return `<!doctype html>
 <html lang="es-AR">
