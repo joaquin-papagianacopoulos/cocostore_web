@@ -342,7 +342,7 @@ footer { padding-bottom: calc(28px + 72px + env(safe-area-inset-bottom)); } /* d
 .vitrina { position: relative; height: 230px; max-width: 420px; margin: 4px auto 40px; width: 100%; }
 @media (min-width: 600px) { .vitrina { max-width: none; } }
 .vit { position: absolute; width: 46%; display: block; background: var(--blanco); color: var(--negro); text-decoration: none; border: 3px solid var(--negro); border-radius: 18px; padding: 6px 6px 10px; box-shadow: 7px 7px 0 var(--negro); transition: transform .2s, box-shadow .2s; }
-.vit img { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 12px; background: var(--blanco); }
+.vit img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 12px; background: var(--blanco); }
 .vit-txt { display: block; padding: 6px 6px 0; }
 .vit-txt b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12px; font-weight: 800; line-height: 1.2; }
 .vit-txt i { display: block; font-style: normal; font-weight: 900; font-size: 16px; color: var(--rojo); margin-top: 2px; }
@@ -357,3 +357,103 @@ footer { padding-bottom: calc(28px + 72px + env(safe-area-inset-bottom)); } /* d
 @keyframes vit-in { from { opacity: 0; translate: 90px 40px; } to { opacity: 1; translate: 0 0; } }
 @media (min-width: 600px) { .vitrina { height: 400px; } .vit-txt b { font-size: 14px; } .vit-txt i { font-size: 18px; } }
 @media (min-width: 960px) { .vitrina { height: 460px; margin: 30px 0 40px; } .vit { padding: 8px 8px 12px; } .vit-txt i { font-size: 20px; } }
+
+/* ===== Ajustes para celular ===== */
+.aviso .corto, .btn .corto { display: none; }
+.ver-mas { display: flex; justify-content: center; margin-top: 24px; }
+.ver-mas:empty { display: none; }
+.prod .btn svg { width: 16px; height: 16px; flex: none; }
+.prod h3 a { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+@media (max-width: 599px) {
+  section { padding-block: 34px; }
+  .titulo { margin-bottom: 16px; }
+  .titulo h2 { font-size: 24px; }
+
+  /* barra superior y cabecera más bajas */
+  .aviso { font-size: 12.5px; padding: 8px 12px; }
+  .aviso .largo { display: none; } .aviso .corto { display: inline; }
+  .cab > .wrap { padding-block: 8px; }
+  .cab .logo img { height: 44px; margin: 0; }
+  .cab .btn { height: 42px; width: 42px; padding: 0; }
+  .buscar input { height: 42px; font-size: 15px; }
+  .nav button { padding: 10px 12px; min-height: 40px; font-size: 13.5px; }
+
+  /* banner compacto */
+  .hero-txt { padding: 22px 0 0; }
+  .hero .hero-t { font-size: 34px; }
+  .sello { font-size: 10.5px !important; padding: 5px 10px; margin-bottom: 10px !important; letter-spacing: .04em; }
+  .hero p { margin-top: 10px; font-size: 14.5px; }
+  .reloj { flex-direction: row; flex-wrap: wrap; align-items: baseline; column-gap: 8px; margin-top: 14px; padding: 8px 14px; box-shadow: 4px 4px 0 var(--negro); border-radius: 12px; }
+  .reloj .digitos { font-size: 24px; }
+  .reloj small { font-size: 12px; }
+  .hero .acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .hero .acciones .btn { height: 44px; padding: 0 10px; font-size: 13.5px; }
+  .hero .btn .largo { display: none; } .hero .btn .corto { display: inline; }
+  .hero .btn { white-space: nowrap; }
+  .vitrina { height: 272px; width: 88%; margin: 14px auto 46px; }
+  .vit.v1 { top: 20px; } .vit.v3 { top: 30px; }
+  .vit { border-radius: 14px; padding: 4px 4px 7px; box-shadow: 4px 4px 0 var(--negro); }
+  .s-perf .vit { box-shadow: 4px 4px 0 var(--rojo); }
+  .vit-txt { padding: 4px 4px 0; }
+  .vit-txt b { font-size: 10.5px; }
+  .vit-txt i { font-size: 13px; }
+  .vitrina .hoy-badge { width: 62px; font-size: 18px; border-width: 3px; top: -14px; right: -10px; box-shadow: 3px 3px 0 var(--negro); }
+  .fotos { height: 270px; } .fotos img { height: 210px; } .fotos .f2 { height: 190px; }
+  .frascos { padding: 8px 0 50px; }
+  .mando .flecha { width: 34px; height: 34px; }
+
+  /* franja de confianza */
+  .confianza { gap: 8px; margin-top: 16px; }
+  .confianza li { padding: 10px; gap: 8px; border-radius: 12px; }
+  .confianza svg { width: 26px; height: 26px; }
+  .confianza li:first-child svg { width: 30px; }
+  .confianza b { font-size: 13px; }
+  .confianza span { font-size: 11.5px; }
+
+  /* categorías */
+  .cat { min-height: 92px; padding: 14px; }
+
+  /* tarjetas de producto */
+  .grilla { gap: 10px; }
+  .prod { border-radius: 14px; }
+  .prod .info { padding: 10px 10px 12px; gap: 2px; }
+  .prod .cat-nombre { font-size: 11px; }
+  .prod h3 { font-size: 13px; line-height: 1.25; }
+  .prod .precio { font-size: 18px; padding-top: 6px; }
+  .llega { font-size: 12px; margin-top: 2px; }
+  .prod .btn { min-height: 38px; margin-top: 8px; font-size: 14px; padding: 6px 10px; }
+  .prod .btn .largo { display: none; } .prod .btn .corto { display: inline; }
+  .prod .cinta { top: 8px; left: 8px; font-size: 11px; padding: 3px 9px; }
+  .riel { grid-auto-columns: 46%; gap: 10px; }
+
+  /* cuándo te llega */
+  .zonas { gap: 8px; }
+  .zona { padding: 14px 16px; display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; }
+  .zona .etq { grid-row: span 2; align-self: start; margin-top: 4px; }
+  .zona h3 { font-size: 20px; margin: 0; }
+  .zona p { font-size: 14px; grid-column: 2; }
+  .envios-cta { margin-top: 16px; }
+  .envios-cta p { font-size: 17px; }
+  .envios-cta .btn { width: 100%; }
+
+  /* prueba social */
+  .tarjeta-zara { min-height: 260px; }
+  .tarjeta-ig { padding: 18px; }
+  .tarjeta-ig b { font-size: 22px; }
+
+  /* cómo comprar, texto SEO y preguntas */
+  .pasos { gap: 14px; }
+  .pasos li { padding-top: 12px; display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; }
+  .pasos li::before { width: 34px; height: 34px; margin: 0; grid-row: span 2; }
+  .pasos b { font-size: 17px; }
+  .pasos p { margin-top: 2px; font-size: 14px; }
+  .seo-txt p { font-size: 14px; }
+  .faq summary { font-size: 15px; padding: 14px 48px 14px 14px; }
+  .faq details p { font-size: 14px; padding: 0 14px 14px; }
+
+  /* pie */
+  footer { padding-top: 34px; }
+  footer .wrap { gap: 18px; }
+  footer img { height: 64px; }
+}

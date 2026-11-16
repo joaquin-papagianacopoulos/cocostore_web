@@ -144,7 +144,7 @@ ${ld.map(jsonLd).join('\n')}
     </div>
   </div>
 </div>
-<div class="aviso"><span><b>Envío en el día</b> en CABA y GBA pidiendo antes de las 18 h</span><span class="sep" aria-hidden="true">·</span><span class="extra">Productos <b>100% originales</b></span></div>
+<div class="aviso"><span class="largo"><b>Envío en el día</b> en CABA y GBA pidiendo antes de las 18 h</span><span class="corto"><b>Llega hoy</b> pidiendo antes de las 18 h</span><span class="sep" aria-hidden="true">·</span><span class="extra">Productos <b>100% originales</b></span></div>
 <header class="cab"><div class="wrap">
   <a class="logo" href="/" aria-label="${NOMBRE}, inicio"><img src="/img/logo.svg" alt="${NOMBRE}"></a>
   <a class="btn" href="${esc(waLink(whatsapp, msg))}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">${WA_SVG}<span>Escribinos</span></a>

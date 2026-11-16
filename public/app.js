@@ -40,8 +40,8 @@ function pintarCorte() {
   const corto = h > 0 ? `${h} h ${m} min` : `${m} min`;
   document.querySelectorAll('[data-corte="aviso"]').forEach((e) => {
     e.innerHTML = resta > 0
-      ? `<b>Envío en el día</b> · Pedí en las próximas <b>${corto}</b> y lo recibís hoy`
-      : '<b>Envío en el día</b> en CABA y GBA · Pedí ahora y sale mañana temprano';
+      ? `<span class="largo"><b>Envío en el día</b> · Pedí en las próximas <b>${corto}</b> y lo recibís hoy</span><span class="corto"><b>Llega hoy</b> si pedís en <b>${corto}</b></span>`
+      : '<span class="largo"><b>Envío en el día</b> en CABA y GBA · Pedí ahora y sale mañana temprano</span><span class="corto"><b>Envío en el día</b> · Pedí ahora, sale mañana</span>';
   });
   document.querySelectorAll('[data-corte="reloj"]').forEach((e) => {
     e.innerHTML = resta > 0
@@ -54,6 +54,7 @@ function pintarCorte() {
   document.querySelectorAll('.llega').forEach((e) => { e.lastChild.textContent = resta > 0 ? 'Llega hoy' : 'Llega mañana'; });
 }
 
+const WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg>';
 const MOTO_SVG = '<svg viewBox="0 0 32 20" aria-hidden="true"><circle cx="6" cy="15" r="4"/><circle cx="26" cy="15" r="4"/><path d="M6 15h9l4-7h5l2 7M19 8l-2-4h-4M13 9h-6"/></svg>';
 
 function linkPedido(msg) {
@@ -117,7 +118,9 @@ function tarjeta(p) {
     ll.append(document.createTextNode(llegaHoy() ? 'Llega hoy' : 'Llega mañana'));
     info.append(ll);
   }
-  const a = el('a', 'btn', p.agotado ? 'Sin stock' : 'Pedir por WhatsApp');
+  const a = el('a', 'btn');
+  if (p.agotado) a.textContent = 'Sin stock';
+  else a.innerHTML = `${WA_ICON}<span class="largo">Pedir por WhatsApp</span><span class="corto">Pedir</span>`;
   a.href = linkPedido(mensajePedido(p));
   a.target = '_blank'; a.rel = 'noopener';
   info.append(a);
@@ -125,7 +128,12 @@ function tarjeta(p) {
   return art;
 }
 
-function pintar() {
+// En celular se muestran de a 12 productos (de a 20 en pantallas grandes) con un botón "Ver más"
+const porPagina = () => (matchMedia('(min-width: 960px)').matches ? 20 : 12);
+let mostrar = 12;
+
+function pintar(mas) {
+  mostrar = mas === true ? mostrar + porPagina() : porPagina();
   if (filtro !== 'Todos' && !categoriasConProductos().includes(filtro)) filtro = 'Todos';
   pintarNav();
   const q = texto.trim().toLowerCase();
@@ -137,6 +145,8 @@ function pintar() {
   $('cuenta').textContent = lista.length === 1 ? '1 producto' : `${lista.length} productos`;
   const g = $('grilla');
   g.replaceChildren();
+  const vm = $('ver-mas');
+  vm.replaceChildren();
   if (!lista.length) {
     const v = el('div', 'vacio');
     v.append(el('h3', '', 'No encontramos productos acá'), el('p', '', 'Escribinos y te decimos qué hay disponible.'));
@@ -145,7 +155,14 @@ function pintar() {
     v.append(a); g.append(v);
     return;
   }
-  lista.forEach((p) => g.append(tarjeta(p)));
+  lista.slice(0, mostrar).forEach((p) => g.append(tarjeta(p)));
+  const resto = lista.length - mostrar;
+  if (resto > 0) {
+    const b = el('button', 'btn negro', `Ver más productos (${resto})`);
+    b.type = 'button';
+    b.onclick = () => pintar(true);
+    vm.append(b);
+  }
 }
 
 function pintarNuevos() {
