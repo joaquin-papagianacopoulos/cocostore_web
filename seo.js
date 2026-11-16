@@ -47,10 +47,8 @@ function waLink(whatsapp, msg) {
 
 // ---------- Home ----------
 function home(html, { base, productos, whatsapp }) {
-  const hayIceKing = productos.some((p) => /ice\s?king/i.test(p.nombre));
-  const titulo = (hayIceKing ? 'Elfbar Ice King 40K y vapes descartables' : 'Vapes descartables, pods y perfumes') + ' en Buenos Aires | ' + NOMBRE;
-  const desc = (hayIceKing ? 'Comprá Elfbar Ice King 40K, vapes descartables, pods y perfumes en Buenos Aires. ' : 'Vapes descartables, recargables, pods, líquidos y perfumes en Buenos Aires. ') +
-    'Envío en el día en CABA y GBA y envíos a todo el país. Pedí por WhatsApp.';
+  const titulo = `Vapes en Buenos Aires | Descartables con envío en el día | ${NOMBRE}`;
+  const desc = 'Vapes descartables originales en Buenos Aires: Elfbar Ice King 40K, Ignite, Dinner Lady, The Black Sheep y perfumes importados. Envío en el día en CABA y GBA. Pedí por WhatsApp.';
   const og = abs(base, (productos.find((p) => p.imagen) || {}).imagen);
   const head = `<title>${esc(titulo)}</title>
 <meta name="description" content="${esc(desc)}">
@@ -63,25 +61,58 @@ ${jsonLd({ '@context': 'https://schema.org', '@type': 'Store', name: NOMBRE, url
 ${jsonLd({ '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: productos.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${base}/p/${p.slug}`, name: p.nombre })) })}`;
   return html
     .replace(/<title>[^<]*<\/title>\s*<meta name="description"[^>]*>/, head)
+    .replace('<p class="seo-links" id="seo-links"></p>', `<p class="seo-links chips" id="seo-links">${coleccionesCon(productos).map((c) => `<a class="chip" href="/${c.slug}">${esc(c.nombre)}</a>`).join('')}</p>`)
     .replace('<div class="grilla" id="grilla" aria-live="polite"></div>', `<div class="grilla" id="grilla" aria-live="polite">${[...productos].sort((a, b) => !!a.agotado - !!b.agotado).map(tarjetaHtml).join('')}</div>`);
 }
 
-// ---------- Producto ----------
-function producto(p, { base, productos, whatsapp }) {
-  const url = `${base}/p/${p.slug}`;
-  const precioTxt = p.precio > 0 ? peso.format(p.precio) : '';
-  const titulo = `${p.nombre} | ${NOMBRE}`;
-  const desc = `${p.nombre}${precioTxt ? ' a ' + precioTxt : ''} en ${NOMBRE}. ${p.agotado ? 'Sin stock por el momento.' : 'Disponible.'} Envíos a todo el país y moto en CABA y GBA. Pedilo por WhatsApp.`;
-  const img = abs(base, p.imagen);
-  const ld = { '@context': 'https://schema.org', '@type': 'Product', name: p.nombre, image: [img], description: desc, sku: String(p.id),
-    category: p.categoria, brand: { '@type': 'Brand', name: marca(p.nombre) }, offers: ofertaLd(p, base) };
-  const migas = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Inicio', item: base + '/' },
-    { '@type': 'ListItem', position: 2, name: p.categoria, item: base + '/' },
-    { '@type': 'ListItem', position: 3, name: p.nombre, item: url }] };
-  const msg = `Hola ${NOMBRE}! Quiero pedir: ${p.nombre}${precioTxt ? ' (' + precioTxt + ')' : ''}. ¿Me lo pueden mandar hoy? Mi zona es: `;
-  const relacionados = productos.filter((x) => x.id !== p.id).sort((a, b) => !!a.agotado - !!b.agotado || (b.categoria === p.categoria) - (a.categoria === p.categoria)).slice(0, 8);
-  const foto = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" width="900" height="900">` : '<img class="vacia" src="/img/mascota.svg" alt="">';
+// ---------- Colecciones: páginas por categoría y por marca (una página para cada búsqueda) ----------
+// Si agregás una, sumá también su ruta a netlify/functions/pages.mjs (config.path).
+const COLECCIONES = [
+  { slug: 'vapes-descartables', nombre: 'Vapes descartables', filtro: (p) => p.categoria === 'Descartables',
+    titulo: 'Vapes descartables en Buenos Aires con envío en el día',
+    h1: 'Vapes descartables en Buenos Aires',
+    intro: 'Comprá vapes descartables originales en CABA y GBA: Elfbar Ice King 40K, Ignite V400, Dinner Lady 50K, The Black Sheep y más. Pedí por WhatsApp antes de las 18 h y lo recibís hoy en moto.',
+    texto: ['Todos nuestros vapes descartables son originales y vienen sellados. Trabajamos con las marcas más pedidas en Argentina y sumamos sabores nuevos todas las semanas.',
+      'Hacemos envío en el día en moto por toda la Ciudad de Buenos Aires y el Gran Buenos Aires, y despachamos por correo al resto del país con número de seguimiento.'] },
+  { slug: 'elfbar', nombre: 'Elfbar', filtro: (p) => /elf\s?bar/i.test(p.nombre),
+    titulo: 'Elfbar en Argentina: Ice King 40K y EBCREATE, precio y envío en el día',
+    h1: 'Elfbar en Buenos Aires: Ice King 40K y EBCREATE',
+    intro: 'Elfbar Ice King 40K y Elfbar EBCREATE originales, con todos los sabores disponibles en stock. Envío en el día en CABA y GBA.',
+    texto: ['El Elfbar Ice King 40K es uno de los vapes descartables más vendidos de Argentina: hasta 40.000 pitadas, pantalla de batería y sabores frutales con y sin hielo.',
+      'Elegí tu sabor, tocá “Pedir” y se abre WhatsApp con el pedido listo. Si pedís antes de las 18 h te lo llevamos hoy.'] },
+  { slug: 'ignite', nombre: 'Ignite', filtro: (p) => /ignite/i.test(p.nombre),
+    titulo: 'Ignite V400 en Buenos Aires: precio y envío en el día',
+    h1: 'Ignite V400 en Buenos Aires',
+    intro: 'Vapes Ignite V400 Mix originales con dos sabores en un mismo equipo. Envío en el día en CABA y GBA.',
+    texto: ['El Ignite V400 Mix trae dos sabores que podés alternar, ideal si te aburrís de uno solo. Consultanos por WhatsApp los sabores que entraron esta semana.'] },
+  { slug: 'dinner-lady', nombre: 'Dinner Lady', filtro: (p) => /dinner\s?lady/i.test(p.nombre),
+    titulo: 'Dinner Lady 50K en Buenos Aires: precio y envío en el día',
+    h1: 'Dinner Lady 50K en Buenos Aires',
+    intro: 'Vapes Dinner Lady 50K originales con doble sabor. Envío en el día en CABA y GBA y a todo el país.',
+    texto: ['El Dinner Lady 50K combina dos sabores en un solo descartable de gran duración. Pedilo por WhatsApp y te lo llevamos hoy si pedís antes de las 18 h.'] },
+  { slug: 'the-black-sheep', nombre: 'The Black Sheep', filtro: (p) => /black\s?sheep/i.test(p.nombre),
+    titulo: 'The Black Sheep 30K e Ice Master en Buenos Aires: precio y envío en el día',
+    h1: 'The Black Sheep 30K e Ice Master en Buenos Aires',
+    intro: 'Vapes The Black Sheep 30K y The Black Sheep Ice Master originales, con doble sabor. Envío en el día en CABA y GBA.',
+    texto: ['La línea The Black Sheep tiene dos sabores por equipo y la versión Ice Master suma un golpe de frío extra. Elegí tu combinación y pedila por WhatsApp.'] },
+  { slug: 'perfumes', nombre: 'Perfumes', filtro: (p) => p.categoria === 'Perfumes',
+    titulo: 'Perfumes importados en Buenos Aires: árabes, de nicho y de diseñador',
+    h1: 'Perfumes importados en Buenos Aires',
+    intro: 'Perfumes originales importados: árabes de Lattafa y Rasasi y de diseñador como Paco Rabanne, Lancôme, Jean Paul Gaultier y Armani. Envío en el día en CABA y GBA.',
+    texto: ['Todos los perfumes son originales y vienen sellados en su caja. Si tenés dudas sobre una fragancia, escribinos y te asesoramos por WhatsApp.'] },
+  { slug: 'perfumes-arabes', nombre: 'Perfumes árabes', filtro: (p) => p.categoria === 'Perfumes' && /lattafa|rasasi|hawas|bade.?e|al oud|yara|qaed|jasoor|armaf|afnan/i.test(p.nombre),
+    titulo: 'Perfumes árabes originales en Buenos Aires: Lattafa y Rasasi',
+    h1: 'Perfumes árabes en Buenos Aires',
+    intro: 'Perfumes árabes originales: Lattafa Yara, Bade’e Al Oud, Qaed Al Fursan, Rasasi Hawas y más. Envío en el día en CABA y GBA.',
+    texto: ['Los perfumes árabes se hicieron famosos por su duración y su relación precio-calidad. Tenemos los más buscados de Lattafa y Rasasi, originales y sellados.'] },
+];
+
+const coleccionesCon = (productos) => COLECCIONES.filter((c) => productos.some(c.filtro));
+const slugCategoria = (cat) => (cat === 'Descartables' ? 'vapes-descartables' : cat === 'Perfumes' ? 'perfumes' : '');
+
+// Esqueleto común de las páginas armadas en el servidor (ficha de producto y colecciones)
+function marco({ titulo, desc, url, img, tipo, ld, cuerpo, whatsapp, msg, productos }) {
+  const enlaces = coleccionesCon(productos).map((c) => `<a href="/${c.slug}">${esc(c.nombre)}</a>`).join('');
   return `<!doctype html>
 <html lang="es-AR">
 <head>
@@ -91,11 +122,10 @@ function producto(p, { base, productos, whatsapp }) {
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
 <link rel="icon" href="/img/mascota.svg">
-<meta property="og:type" content="product"><meta property="og:site_name" content="${NOMBRE}"><meta property="og:title" content="${esc(titulo)}">
+<meta property="og:type" content="${tipo}"><meta property="og:site_name" content="${NOMBRE}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${esc(img)}">
 <meta name="twitter:card" content="summary_large_image">
-${jsonLd(ld)}
-${jsonLd(migas)}
+${ld.map(jsonLd).join('\n')}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -118,9 +148,38 @@ ${jsonLd(migas)}
 <header class="cab"><div class="wrap">
   <a class="logo" href="/" aria-label="${NOMBRE}, inicio"><img src="/img/logo.svg" alt="${NOMBRE}"></a>
   <a class="btn" href="${esc(waLink(whatsapp, msg))}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">${WA_SVG}<span>Escribinos</span></a>
-</div></header>
+</div>
+<nav class="nav" aria-label="Categorías"><div class="wrap"><a href="/">Todos</a>${enlaces}</div></nav></header>
 <main class="wrap">
-  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> › <a href="/">${esc(p.categoria)}</a> › <span>${esc(p.nombre)}</span></nav>
+${cuerpo}
+</main>
+<footer><div class="wrap"><div><img src="/img/logo.svg" alt="${NOMBRE}"><p style="margin-top:14px;max-width:26em">Vapes originales y perfumes importados. Envío en el día en CABA y GBA y a todo el país.</p></div>
+<div><h4>Categorías</h4>${enlaces}</div>
+<div><h4>Contacto</h4><a href="${esc(waLink(whatsapp, 'Hola Coco Store! Quería hacer una consulta.'))}" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/cocostoreba/" target="_blank" rel="noopener">Instagram @cocostoreba</a><a href="/">Ver toda la tienda</a></div>
+<p class="legal">Venta exclusiva a mayores de 18 años. Los precios y el stock pueden cambiar sin aviso.</p></div></footer>
+<script src="/edad.js"></script>
+</body>
+</html>`;
+}
+
+// ---------- Producto ----------
+function producto(p, { base, productos, whatsapp }) {
+  const url = `${base}/p/${p.slug}`;
+  const precioTxt = p.precio > 0 ? peso.format(p.precio) : '';
+  const titulo = `${p.nombre}${precioTxt ? ' – ' + precioTxt : ''} | Envío en el día | ${NOMBRE}`;
+  const desc = `Comprá ${p.nombre}${precioTxt ? ' a ' + precioTxt : ''} en ${NOMBRE}. ${p.agotado ? 'Sin stock por el momento.' : 'Original y en stock.'} Envío en el día en CABA y GBA y a todo el país. Pedilo por WhatsApp.`;
+  const img = abs(base, p.imagen);
+  const col = COLECCIONES.find((c) => c.slug === slugCategoria(p.categoria));
+  const ld = { '@context': 'https://schema.org', '@type': 'Product', name: p.nombre, image: [img], description: desc, sku: String(p.id),
+    category: p.categoria, brand: { '@type': 'Brand', name: marca(p.nombre) }, offers: ofertaLd(p, base) };
+  const migas = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: base + '/' },
+    { '@type': 'ListItem', position: 2, name: col ? col.nombre : p.categoria, item: col ? `${base}/${col.slug}` : base + '/' },
+    { '@type': 'ListItem', position: 3, name: p.nombre, item: url }] };
+  const msg = `Hola ${NOMBRE}! Quiero pedir: ${p.nombre}${precioTxt ? ' (' + precioTxt + ')' : ''}. ¿Me lo pueden mandar hoy? Mi zona es: `;
+  const relacionados = productos.filter((x) => x.id !== p.id).sort((a, b) => !!a.agotado - !!b.agotado || (b.categoria === p.categoria) - (a.categoria === p.categoria)).slice(0, 8);
+  const foto = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" width="900" height="900">` : '<img class="vacia" src="/img/mascota.svg" alt="">';
+  const cuerpo = `  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> › <a href="${col ? '/' + col.slug : '/'}">${esc(col ? col.nombre : p.categoria)}</a> › <span>${esc(p.nombre)}</span></nav>
   <article class="ficha">
     <div class="ficha-foto">${foto}</div>
     <div class="ficha-info">
@@ -133,13 +192,42 @@ ${jsonLd(migas)}
       <p class="texto">${esc(p.nombre)} en ${NOMBRE}. Se abre WhatsApp con el pedido listo y confirmamos stock, zona y forma de pago.</p>
     </div>
   </article>
-  ${relacionados.length ? `<section class="otros"><h2>Más productos</h2><div class="grilla">${relacionados.map(tarjetaHtml).join('')}</div></section>` : ''}
-</main>
-<footer><div class="wrap"><div><img src="/img/logo.svg" alt="${NOMBRE}"></div><div><h4>Contacto</h4><a href="https://www.instagram.com/cocostoreba/" target="_blank" rel="noopener">Instagram @cocostoreba</a><a href="/">Ver toda la tienda</a></div>
-<p class="legal">Venta exclusiva a mayores de 18 años. Los precios y el stock pueden cambiar sin aviso.</p></div></footer>
-<script src="/edad.js"></script>
-</body>
-</html>`;
+  ${relacionados.length ? `<section class="otros"><h2>Más productos</h2><div class="grilla">${relacionados.map(tarjetaHtml).join('')}</div></section>` : ''}`;
+  return marco({ titulo, desc, url, img, tipo: 'product', ld: [ld, migas], cuerpo, whatsapp, msg, productos });
+}
+
+// ---------- Colección ----------
+function coleccion(slug, { base, productos, whatsapp }) {
+  const c = COLECCIONES.find((x) => x.slug === slug);
+  if (!c) return null;
+  const lista = productos.filter(c.filtro).sort((a, b) => !!a.agotado - !!b.agotado);
+  if (!lista.length) return null;
+  const url = `${base}/${c.slug}`;
+  const conPrecio = lista.filter((p) => p.precio > 0 && !p.agotado).map((p) => p.precio);
+  const desde = conPrecio.length ? ` Desde ${peso.format(Math.min(...conPrecio))}.` : '';
+  const desc = c.intro + desde;
+  const img = abs(base, (lista.find((p) => p.imagen) || {}).imagen);
+  const msg = `Hola ${NOMBRE}! Quería consultar por ${c.nombre}. ¿Me lo pueden mandar hoy? Mi zona es: `;
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.h1, url, description: desc,
+      mainEntity: { '@type': 'ItemList', itemListElement: lista.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${base}/p/${p.slug}`, name: p.nombre })) } },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: base + '/' },
+      { '@type': 'ListItem', position: 2, name: c.nombre, item: url }] }];
+  const otras = coleccionesCon(productos).filter((x) => x.slug !== c.slug).map((x) => `<a class="chip" href="/${x.slug}">${esc(x.nombre)}</a>`).join('');
+  const cuerpo = `  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> › <span>${esc(c.nombre)}</span></nav>
+  <header class="col-cab">
+    <h1>${esc(c.h1)}</h1>
+    <p>${esc(c.intro)}${esc(desde)}</p>
+    <a class="btn negro" href="${esc(waLink(whatsapp, msg))}" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+  </header>
+  <section class="col-prod"><h2 class="sr">${lista.length} productos</h2><div class="grilla">${lista.map(tarjetaHtml).join('')}</div></section>
+  <section class="col-texto">
+    <h2>Sobre ${esc(c.nombre)} en ${NOMBRE}</h2>
+    ${c.texto.map((t) => `<p>${esc(t)}</p>`).join('\n    ')}
+    ${otras ? `<p class="chips">Mirá también: ${otras}</p>` : ''}
+  </section>`;
+  return marco({ titulo: `${c.titulo} | ${NOMBRE}`, desc, url, img, tipo: 'website', ld, cuerpo, whatsapp, msg, productos });
 }
 
 function noEncontrado() {
@@ -151,10 +239,11 @@ function noEncontrado() {
 function sitemap(base, productos) {
   const f = (t) => new Date(t || Date.now()).toISOString().slice(0, 10);
   const u = [`<url><loc>${base}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>`,
+    ...coleccionesCon(productos).map((c) => `<url><loc>${base}/${c.slug}</loc><changefreq>daily</changefreq><priority>0.9</priority></url>`),
     ...productos.map((p) => `<url><loc>${esc(base + '/p/' + p.slug)}</loc><lastmod>${f(p.creado)}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>`)];
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${u.join('\n')}\n</urlset>\n`;
 }
 
 const robots = (base) => `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: ${base}/sitemap.xml\n`;
 
-module.exports = { conSlugs, home, producto, noEncontrado, sitemap, robots };
+module.exports = { conSlugs, home, producto, coleccion, COLECCIONES, noEncontrado, sitemap, robots };

@@ -26,3 +26,19 @@
 .garantias { list-style: none; padding: 14px 16px; margin: 6px 0 0; display: grid; gap: 8px; border: var(--borde); border-radius: 14px; background: var(--papel); width: 100%; }
 .garantias li { position: relative; padding-left: 28px; font-weight: 500; font-size: 15px; }
 .garantias li::before { content: '✓'; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--rojo); color: var(--blanco); font-size: 12px; font-weight: 900; display: grid; place-items: center; }
+/* Colecciones (/vapes-descartables, /elfbar, ...) */
+.nav a { flex: none; color: var(--blanco); text-decoration: none; font-weight: 700; font-size: 14px; padding: 12px 14px; min-height: 44px; white-space: nowrap; border-bottom: 4px solid transparent; }
+.nav a:hover { color: var(--rojo); }
+.col-cab { padding-block: 18px 26px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.col-cab h1 { font-size: clamp(30px, 4.6vw, 56px); font-weight: 900; letter-spacing: -.03em; line-height: 1.02; text-wrap: balance; }
+.col-cab p { font-weight: 500; max-width: 46em; font-size: clamp(16px, 1.5vw, 18px); }
+.col-prod { padding-block: 0 36px; }
+.col-texto, .seo-txt .wrap > * { max-width: 52em; }
+.col-texto { padding-block: 8px 56px; }
+.col-texto h2, .seo-txt h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 900; letter-spacing: -.02em; margin-bottom: 10px; }
+.col-texto p, .seo-txt p { font-weight: 500; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.chip { display: inline-block; border: var(--borde); border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: 14px; text-decoration: none; background: var(--blanco); }
+.chip:hover { background: var(--rojo); color: var(--blanco); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.seo-txt { border-top: var(--borde); }

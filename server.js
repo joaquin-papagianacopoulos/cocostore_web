@@ -202,6 +202,11 @@ http.createServer(async (req, res) => {
       const c = ctx(), p = c.productos.find((x) => x.slug === pm[1]);
       return p ? texto(200, 'text/html; charset=utf-8', seo.producto(p, c)) : texto(404, 'text/html; charset=utf-8', seo.noEncontrado());
     }
+    const cm = /^\/([a-z0-9-]+)\/?$/.exec(url);
+    if (cm && seo.COLECCIONES.some((c) => c.slug === cm[1])) {
+      const html = seo.coleccion(cm[1], ctx());
+      return html ? texto(200, 'text/html; charset=utf-8', html) : texto(404, 'text/html; charset=utf-8', seo.noEncontrado());
+    }
     if (url === '/') {
       return fs.readFile(path.join(PUBLIC, 'index.html'), 'utf8', (err, html) => err ? json(res, 500, { error: 'Error' }) : texto(200, 'text/html; charset=utf-8', seo.home(html, ctx())));
     }

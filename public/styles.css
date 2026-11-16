@@ -62,9 +62,9 @@ button { font: inherit; cursor: pointer; }
 .s-vape { --fondo: var(--rojo); --barra: var(--negro); }
 .s-hoy { --fondo: var(--rojo); --barra: var(--negro); }
 .hero-txt { padding: 36px 0 8px; }
-.hero h1 { font-size: clamp(36px, 5.4vw, 76px); line-height: .98; font-weight: 900; letter-spacing: -.035em; text-wrap: balance; }
-.hero h1 span { display: block; color: var(--negro); }
-.s-zara h1 span, .s-perf h1 span { color: var(--rojo); }
+.hero .hero-t { font-size: clamp(36px, 5.4vw, 76px); line-height: .98; font-weight: 900; letter-spacing: -.035em; text-wrap: balance; }
+.hero .hero-t span { display: block; color: var(--negro); }
+.s-zara .hero-t span, .s-perf .hero-t span { color: var(--rojo); }
 .hero p { margin-top: 22px; max-width: 30em; font-size: clamp(16px, 1.6vw, 19px); font-weight: 600; }
 .hero .acciones { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
 .hero .btn { background: var(--negro); border-color: var(--negro); }
@@ -242,7 +242,7 @@ footer { padding-bottom: calc(28px + 72px + env(safe-area-inset-bottom)); } /* d
 /* ===== Rediseño: envío en el día + confianza ===== */
 
 /* Slide "Lo tenés hoy" */
-.sello { display: inline-block; margin: 0 0 16px !important; background: var(--negro); color: var(--blanco); font-size: 13px !important; font-weight: 800 !important; letter-spacing: .06em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; }
+.sello { display: table; margin: 0 0 16px !important; background: var(--negro); color: var(--blanco); font-size: 13px !important; font-weight: 800 !important; letter-spacing: .06em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; }
 .reloj { display: inline-flex; flex-direction: column; gap: 2px; margin-top: 24px; background: var(--blanco); color: var(--negro); border: var(--borde); border-radius: 16px; padding: 12px 18px; box-shadow: 6px 6px 0 var(--negro); }
 .reloj small { font-size: 13px; font-weight: 700; }
 .reloj small strong { color: var(--rojo); font-weight: 900; text-transform: uppercase; }

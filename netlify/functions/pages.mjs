@@ -16,8 +16,15 @@ export default async (req) => {
     const c = await ctx(), p = c.productos.find((x) => x.slug === pm[1]);
     return p ? C.texto(200, 'text/html; charset=utf-8', seo.producto(p, c), cdn) : C.texto(404, 'text/html; charset=utf-8', seo.noEncontrado(), { 'Cache-Control': 'no-cache' });
   }
+  const cm = /^\/([a-z0-9-]+)\/?$/.exec(url);
+  if (cm && seo.COLECCIONES.some((x) => x.slug === cm[1])) {
+    const html = seo.coleccion(cm[1], await ctx());
+    return html ? C.texto(200, 'text/html; charset=utf-8', html, cdn) : C.texto(404, 'text/html; charset=utf-8', seo.noEncontrado(), { 'Cache-Control': 'no-cache' });
+  }
   if (url === '/') return C.texto(200, 'text/html; charset=utf-8', seo.home(C.indexHtml, await ctx()), cdn);
   return C.texto(404, 'text/html; charset=utf-8', seo.noEncontrado(), { 'Cache-Control': 'no-cache' });
 };
 
-export const config = { path: ['/', '/p/*', '/sitemap.xml', '/robots.txt'] };
+// Las rutas de colecciones tienen que coincidir con COLECCIONES en seo.js (Netlify necesita la lista escrita acá)
+export const config = { path: ['/', '/p/*', '/sitemap.xml', '/robots.txt',
+  '/vapes-descartables', '/elfbar', '/ignite', '/dinner-lady', '/the-black-sheep', '/perfumes', '/perfumes-arabes'] };
