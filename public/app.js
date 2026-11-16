@@ -1,6 +1,15 @@
 // Tienda Coco Store: carga productos del servidor y los muestra con filtros.
 const CATEGORIAS = ['Descartables', 'Recargables', 'Pods', 'Líquidos', 'Perfumes', 'Otros'];
 const IG_DM = 'https://ig.me/m/cocostoreba';
+
+// ---- Datos del negocio: editá acá ----
+const TIENDA = {
+  corte: 18,                              // hora límite (Buenos Aires) para recibir el pedido el mismo día
+  pagos: 'Efectivo o transferencia',      // formas de pago que se muestran en la web
+  // Reseñas REALES de clientes (copialas de WhatsApp/Instagram con su permiso). Si queda vacío, la sección no aparece.
+  // Ejemplo: { nombre: 'Martín, Palermo', texto: 'Pedí a las 4 y a las 6 lo tenía en casa.' }
+  resenas: [],
+};
 const $ = (id) => document.getElementById(id);
 const peso = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 });
 
@@ -15,6 +24,37 @@ function el(tag, clase, txt) {
   if (txt !== undefined) e.textContent = txt;
   return e;
 }
+
+// ---- Envío en el día: cuenta regresiva hasta el corte, en hora de Buenos Aires ----
+function segundosBA() {
+  const f = new Intl.DateTimeFormat('es-AR', { timeZone: 'America/Argentina/Buenos_Aires', hour: 'numeric', minute: 'numeric', second: 'numeric', hourCycle: 'h23' });
+  const v = Object.fromEntries(f.formatToParts(new Date()).map((x) => [x.type, Number(x.value)]));
+  return v.hour * 3600 + v.minute * 60 + v.second;
+}
+const dos = (n) => String(n).padStart(2, '0');
+const llegaHoy = () => TIENDA.corte * 3600 - segundosBA() > 0;
+
+function pintarCorte() {
+  const resta = TIENDA.corte * 3600 - segundosBA();
+  const h = Math.floor(resta / 3600), m = Math.floor((resta % 3600) / 60), s = resta % 60;
+  const corto = h > 0 ? `${h} h ${m} min` : `${m} min`;
+  document.querySelectorAll('[data-corte="aviso"]').forEach((e) => {
+    e.innerHTML = resta > 0
+      ? `<b>Envío en el día</b> · Pedí en las próximas <b>${corto}</b> y lo recibís hoy`
+      : '<b>Envío en el día</b> en CABA y GBA · Pedí ahora y sale mañana temprano';
+  });
+  document.querySelectorAll('[data-corte="reloj"]').forEach((e) => {
+    e.innerHTML = resta > 0
+      ? `<small>Pedí en las próximas</small><span class="digitos"><b>${dos(h)}</b>:<b>${dos(m)}</b>:<b>${dos(s)}</b></span><small>y lo recibís <strong>hoy</strong></small>`
+      : `<small>Hoy ya cerramos los envíos.</small><span class="digitos manana">Pedí ahora</span><small>y sale <strong>mañana temprano</strong></small>`;
+  });
+  document.querySelectorAll('[data-corte="texto"]').forEach((e) => {
+    e.textContent = resta > 0 ? `Te quedan ${corto} para recibirlo hoy.` : 'Pedí ahora y te lo llevamos mañana temprano.';
+  });
+  document.querySelectorAll('.llega').forEach((e) => { e.lastChild.textContent = resta > 0 ? 'Llega hoy' : 'Llega mañana'; });
+}
+
+const MOTO_SVG = '<svg viewBox="0 0 32 20" aria-hidden="true"><circle cx="6" cy="15" r="4"/><circle cx="26" cy="15" r="4"/><path d="M6 15h9l4-7h5l2 7M19 8l-2-4h-4M13 9h-6"/></svg>';
 
 function linkPedido(msg) {
   return whatsapp ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}` : IG_DM;
@@ -48,6 +88,15 @@ function pintarCats() {
   });
 }
 
+// Los 6 productos con stock cargados más recientemente llevan la etiqueta "Nuevo"
+let idsNuevos = new Set();
+const recientes = () => productos.filter((p) => !p.agotado).sort((a, b) => (b.creado || 0) - (a.creado || 0));
+
+function mensajePedido(p) {
+  return `Hola Coco Store! Quiero pedir: ${p.nombre}${p.precio > 0 ? ' (' + peso.format(p.precio) + ')' : ''}. ` +
+    `¿Me lo pueden mandar ${llegaHoy() ? 'hoy' : 'mañana'}? Mi zona es: `;
+}
+
 function tarjeta(p) {
   const art = el('article', 'prod' + (p.agotado ? ' agotado' : ''));
   const foto = el('div', 'foto');
@@ -56,13 +105,20 @@ function tarjeta(p) {
   if (p.imagen) img.src = p.imagen; else { img.src = '/img/mascota.svg'; img.className = 'vacia'; img.alt = ''; }
   foto.append(img);
   if (p.agotado) foto.append(el('span', 'cinta', 'Agotado'));
+  else if (idsNuevos.has(p.id)) foto.append(el('span', 'cinta nuevo', 'Nuevo'));
   const info = el('div', 'info');
   const h3 = el('h3');
   if (p.slug) { const l = el('a', '', p.nombre); l.href = '/p/' + p.slug; h3.append(l); } else h3.textContent = p.nombre;
   info.append(el('span', 'cat-nombre', p.categoria), h3,
     el('div', 'precio', p.precio > 0 ? peso.format(p.precio) : 'Consultar precio'));
+  if (!p.agotado) {
+    const ll = el('span', 'llega');
+    ll.innerHTML = MOTO_SVG;
+    ll.append(document.createTextNode(llegaHoy() ? 'Llega hoy' : 'Llega mañana'));
+    info.append(ll);
+  }
   const a = el('a', 'btn', p.agotado ? 'Sin stock' : 'Pedir por WhatsApp');
-  a.href = linkPedido(`Hola Coco Store! Quiero pedir: ${p.nombre}${p.precio > 0 ? ' (' + peso.format(p.precio) + ')' : ''}`);
+  a.href = linkPedido(mensajePedido(p));
   a.target = '_blank'; a.rel = 'noopener';
   info.append(a);
   art.append(foto, info);
@@ -92,8 +148,46 @@ function pintar() {
   lista.forEach((p) => g.append(tarjeta(p)));
 }
 
+function pintarNuevos() {
+  const lista = recientes().slice(0, 10);
+  $('sec-nuevos').hidden = lista.length < 4;
+  const r = $('nuevos');
+  r.replaceChildren(...lista.map(tarjeta));
+}
+
+// Banners: reemplaza el dibujo por fotos reales de los 3 productos más nuevos de la categoría (si hay al menos 3 con foto)
+function pintarVitrinas() {
+  document.querySelectorAll('[data-vitrina]').forEach((cont) => {
+    const lista = recientes().filter((p) => p.categoria === cont.dataset.vitrina && p.imagen).slice(0, 3);
+    if (lista.length < 3) return;
+    const v = el('div', 'vitrina');
+    const badge = cont.querySelector('.hoy-badge');
+    if (badge) v.append(badge);
+    lista.forEach((p, i) => {
+      const a = el('a', `vit v${i + 1}`);
+      a.href = p.slug ? '/p/' + p.slug : '#productos';
+      const img = el('img'); img.src = p.imagen; img.alt = p.nombre; img.width = 400; img.height = 400;
+      const t = el('span', 'vit-txt');
+      t.append(el('b', '', p.nombre), el('i', '', p.precio > 0 ? peso.format(p.precio) : 'Consultar'));
+      a.append(img, t); v.append(a);
+    });
+    cont.replaceWith(v);
+  });
+}
+
+function pintarResenas() {
+  const cont = $('resenas');
+  if (!TIENDA.resenas.length) return;
+  cont.hidden = false;
+  TIENDA.resenas.slice(0, 4).forEach((r) => {
+    const f = el('figure', 'resena');
+    f.append(el('div', 'estrellas', '★★★★★'), el('blockquote', '', `“${r.texto}”`), el('figcaption', '', r.nombre));
+    cont.append(f);
+  });
+}
+
 function enlacesWA() {
-  const h = linkPedido('Hola Coco Store! Quería hacer una consulta.');
+  const h = linkPedido(`Hola Coco Store! Quería hacer un pedido para recibir ${llegaHoy() ? 'hoy' : 'mañana'}. Mi zona es: `);
   ['wa-cab', 'wa-pie', 'wa-flota'].forEach((id) => { $(id).href = h; });
   document.querySelectorAll('[data-wa]').forEach((a) => { a.href = h; });
 }
@@ -103,8 +197,21 @@ async function cargar() {
     const [p, c] = await Promise.all([fetch('/api/products').then((r) => r.json()), fetch('/api/config').then((r) => r.json())]);
     productos = p; whatsapp = c.whatsapp || '';
   } catch { productos = []; }
-  enlacesWA(); pintarCats(); pintar();
+  idsNuevos = new Set(recientes().slice(0, 6).map((p) => p.id));
+  enlacesWA(); pintarVitrinas(); pintarCats(); pintarNuevos(); pintar();
 }
+
+// Datos fijos del negocio en la página
+document.querySelectorAll('[data-pagos]').forEach((e) => { e.textContent = TIENDA.pagos; });
+document.querySelectorAll('[data-corte-hora]').forEach((e) => { e.textContent = `${TIENDA.corte} h`; });
+pintarResenas();
+pintarCorte();
+setInterval(pintarCorte, 1000);
+
+// Flechas de la fila "Recién llegados"
+document.querySelectorAll('[data-riel]').forEach((b) => {
+  b.addEventListener('click', () => { const r = $('nuevos'); r.scrollBy({ left: Number(b.dataset.riel) * r.clientWidth * 0.8, behavior: 'smooth' }); });
+});
 
 $('q').addEventListener('input', (e) => { texto = e.target.value; pintar(); });
 

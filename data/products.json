@@ -1,26 +1,152 @@
 [
   {
+    "id": "a76bccc7-b093-4475-b491-6ef68129b2fd",
+    "nombre": "DINNER LADY 50K - GRAPE ICE | MINT ICE",
+    "precio": 33000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/839c2086-61e3-4351-8f74-1ca02fb443ac.jpg",
+    "agotado": false,
+    "creado": 1794855453415
+  },
+  {
+    "id": "2df716be-a6f3-4ddb-9ec5-7cad4d3ccdd5",
+    "nombre": "DINNER LADY 50K -  GRAPE ICE | MEXICO MANGO ICE",
+    "precio": 33000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/27e73169-0e0a-42c5-b868-745ab1b5cf26.jpg",
+    "agotado": false,
+    "creado": 1794855175468
+  },
+  {
+    "id": "b6cbf766-ccb5-440c-9c0b-244555aedf37",
+    "nombre": "DINNER LADY 50K - WATERMELON ICE | STRAWBERRY ICE",
+    "precio": 33000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/13631004-60f0-4196-910a-74a122ec2614.jpg",
+    "agotado": false,
+    "creado": 1794855109792
+  },
+  {
+    "id": "4b558d2b-74ee-43fe-b78b-13a610e956f2",
+    "nombre": "THE BLACK SHEEP 30K GRAPE | PASSION FRUIT",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/44cc1581-fead-4355-89f0-9cb977092d16.jpg",
+    "agotado": false,
+    "creado": 1794855052535
+  },
+  {
+    "id": "95adcffe-359e-4a32-a856-da94f1e1b64c",
+    "nombre": "THE BLACK SHEEP 30K - WATERMELON BUBBLE | MANGO PEACH WATERMELON",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/a4c61e16-bf73-4528-9af5-6e1255b9a479.jpg",
+    "agotado": false,
+    "creado": 1794855009710
+  },
+  {
+    "id": "70b2a7e8-1bd4-4eb8-9bed-12aec69b22f1",
+    "nombre": "THE BLACK SHEEP 30K - GRAPE | WATERMELON BUBBLE",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/e34117b9-ab81-45a1-adb5-3f5f1b2babe9.jpg",
+    "agotado": false,
+    "creado": 1794854998655
+  },
+  {
+    "id": "d6ec8766-a884-4a67-9ebc-ea1dbf6c89c7",
+    "nombre": "THE BLACK SHEEP 30K - STRAWBERRY BANANA | PINEAPPLE COCONUT",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/34dbf119-bcf3-4fa3-84e5-e80e62847d2f.jpg",
+    "agotado": false,
+    "creado": 1794854964433
+  },
+  {
+    "id": "f059664e-44d1-4ddd-babe-92241502a93d",
+    "nombre": "THE BLACK SHEEP 30K - STRAWBERRY BUBBLE | SOUR PINEAPPLE",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/7898df8b-acde-4e4f-a5be-f9a0f25a26fd.jpg",
+    "agotado": false,
+    "creado": 1794854904557
+  },
+  {
+    "id": "85b1f8d7-2ded-436c-afe9-17f4b43ebd11",
+    "nombre": "THE BLACK SHEEP ICE MASTER 30K - ACAI STRAWBERRY | GRAPE MANGO",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/b48e6468-0316-4bf6-9776-c7bc0c174cb7.jpg",
+    "agotado": false,
+    "creado": 1794854859447
+  },
+  {
+    "id": "051f300e-026e-4e36-97b0-92f11751df1f",
+    "nombre": "THE BLACK SHEEP ICE MASTER 30K - ACAI STRAWBERRY BANANA | GRAPE",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/b0152739-7a03-4edb-a2f7-0d89f638d9b8.jpg",
+    "agotado": false,
+    "creado": 1794854845961
+  },
+  {
+    "id": "9088d241-db37-4131-8ff8-a467f6436900",
+    "nombre": "THE BLACK SHEEP ICE MASTER 30K - ACAI GRAPE | STRAWBERRY KIWI",
+    "precio": 30000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/5211cf2e-0ae1-4fab-8d57-a5f32d2a1d72.jpg",
+    "agotado": false,
+    "creado": 1794854787886
+  },
+  {
+    "id": "b6399576-778d-400c-88e9-ea1c72f5db07",
+    "nombre": "IGNITE V400 MIX WATERMELON GRAPE ICE | ACAI ICE",
+    "precio": 32000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/ee526873-0e68-435c-b4c4-23a42c38969c.jpg",
+    "agotado": false,
+    "creado": 1794854335751
+  },
+  {
+    "id": "b1220666-4eb3-469d-885d-09978ada1228",
+    "nombre": "IGNITE V400 MIX STRAWBERRY WATERMELON ICE | ALOE GRAPE",
+    "precio": 32000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/3bbbc63b-b7d3-4351-ac39-cab385b6fbd5.jpg",
+    "agotado": false,
+    "creado": 1794854310369
+  },
+  {
+    "id": "596aeb0d-d3cb-4ec3-9218-04d008df5e3d",
+    "nombre": "ELFBAR ICE KING 40K MIAMI MINT",
+    "precio": 32000,
+    "categoria": "Descartables",
+    "imagen": "/uploads/65bbb57c-6f6c-4faa-bc50-402542c10740.jpg",
+    "agotado": false,
+    "creado": 1794852259946
+  },
+  {
     "id": "5b266bfa-e38b-4c49-adc3-1def432bd332",
     "nombre": "ELFBAR EBCREATE 40K WATERMELON ICE",
-    "precio": 18000,
+    "precio": 20000,
     "categoria": "Descartables",
     "imagen": "/uploads/ebcreate-watermelon-ice.jpg",
-    "agotado": false,
+    "agotado": true,
     "creado": 1793056388635
   },
   {
     "id": "28c3e62f-6b62-4832-bbdc-ac698d49c600",
     "nombre": "ELFBAR EBCREATE 40K PINEAPPLE POMELO",
-    "precio": 18000,
+    "precio": 20000,
     "categoria": "Descartables",
     "imagen": "/uploads/ebcreate-pineapple-pomelo.jpg",
-    "agotado": false,
+    "agotado": true,
     "creado": 1793056388634
   },
   {
     "id": "75ea2101-f6cf-4c36-abfa-64999e026653",
     "nombre": "ELFBAR EBCREATE 40K RASPBERRY MALLO",
-    "precio": 18000,
+    "precio": 20000,
     "categoria": "Descartables",
     "imagen": "/uploads/ebcreate-raspberry-mallo.jpg",
     "agotado": false,
@@ -29,10 +155,10 @@
   {
     "id": "46679dae-7574-4703-9c55-72f33b9d3132",
     "nombre": "ELFBAR EBCREATE 40K BLUE RAZZ ICE",
-    "precio": 18000,
+    "precio": 20000,
     "categoria": "Descartables",
     "imagen": "/uploads/ebcreate-blue-razz-ice.jpg",
-    "agotado": false,
+    "agotado": true,
     "creado": 1793056388632
   },
   {
@@ -117,9 +243,18 @@
     "creado": 1793056388623
   },
   {
+    "id": "290730f6-e7a6-4cd6-b4af-b31d96480d45",
+    "nombre": "Bade'e Al Oud Honor & Glory Lattafa",
+    "precio": 51500,
+    "categoria": "Perfumes",
+    "imagen": "/uploads/4a90b314-5d56-43f1-9a99-8c9a69829093.jpg",
+    "agotado": false,
+    "creado": 1792627859532
+  },
+  {
     "id": "db07f28d-4058-4f84-a6cc-127133368158",
     "nombre": "ELFBAR ICE KING 40K BLUE RAZZ ICE",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-blue-razz-ice.png",
     "agotado": false,
@@ -128,16 +263,16 @@
   {
     "id": "46c66f2a-3b8e-4b53-a12a-fe77548462a7",
     "nombre": "ELFBAR ICE KING 40K BLUEBERRY",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/3accd961-55d8-4e9f-a3e3-0a52ed025dca.jpg",
-    "agotado": false,
+    "agotado": true,
     "creado": 1792436804685
   },
   {
     "id": "9b9f477b-b2ab-4cd0-b3ae-5abb8f5ae751",
     "nombre": "ELFBAR ICE KING 40K BUBBALOO TUTTI FRUTTI",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/24db920e-213b-46e7-92f7-ba0bfec04af2.jpg",
     "agotado": false,
@@ -146,16 +281,16 @@
   {
     "id": "2eb453e0-c607-4d19-9be9-43277a0b15ac",
     "nombre": "ELFBAR ICE KING 40K CHERRY FUSE",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-cherry-fuse.png",
-    "agotado": false,
+    "agotado": true,
     "creado": 1792436804683
   },
   {
     "id": "9110fabd-81df-40a1-b20e-2a867dce3533",
     "nombre": "ELFBAR ICE KING 40K CRANBERRY PINEAPPLE JUICE",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-cranberry-pineapple-juice.png",
     "agotado": false,
@@ -164,7 +299,7 @@
   {
     "id": "cd0d102d-c350-4b94-a4cf-bb9aede5e5b1",
     "nombre": "ELFBAR ICE KING 40K GRAPE ICE",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-grape-ice.png",
     "agotado": false,
@@ -173,16 +308,16 @@
   {
     "id": "33994dc2-26b1-4837-8992-05945945a8e6",
     "nombre": "ELFBAR ICE KING 40K GREEN APPLE ICE",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-green-apple-ice.png",
-    "agotado": false,
+    "agotado": true,
     "creado": 1792436804680
   },
   {
     "id": "030ca0ee-6ef1-42bc-a4bc-332ce567cde1",
     "nombre": "ELFBAR ICE KING 40K PEACH",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-peach.png",
     "agotado": false,
@@ -190,8 +325,8 @@
   },
   {
     "id": "065dc790-4b92-4420-b799-265e78abf2ed",
-    "nombre": "ELFBAR ICE KING 40K STRAWB ICE",
-    "precio": 27000,
+    "nombre": "ELFBAR ICE KING 40K STRAWBERRY ICE",
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-strawb-ice.png",
     "agotado": false,
@@ -199,8 +334,8 @@
   },
   {
     "id": "df0f24aa-4235-411a-8c96-08d766719046",
-    "nombre": "ELFBAR ICE KING 40K STRAWB WATERMELON",
-    "precio": 27000,
+    "nombre": "ELFBAR ICE KING 40K STRAWBERRY WATERMELON",
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-strawb-watermelon.png",
     "agotado": false,
@@ -209,16 +344,16 @@
   {
     "id": "004d2a50-1d5a-4419-9cb3-171c14d8eda8",
     "nombre": "ELFBAR ICE KING 40K WATERMELON ICE",
-    "precio": 27000,
+    "precio": 32000,
     "categoria": "Descartables",
     "imagen": "/uploads/elfbar-watermelon-ice.png",
-    "agotado": false,
+    "agotado": true,
     "creado": 1792436804676
   },
   {
     "id": "e31e3d34-f66c-47d9-9a5e-1037edb85911",
     "nombre": "Jasoor by Lattafa",
-    "precio": 63300,
+    "precio": 64000,
     "categoria": "Perfumes",
     "imagen": "/uploads/jasoor-lattafa.jpg",
     "agotado": false,
@@ -227,7 +362,7 @@
   {
     "id": "64ea151b-f901-4f9a-be87-f03837e8f5f1",
     "nombre": "Noble blush by Lattafa",
-    "precio": 46200,
+    "precio": 47000,
     "categoria": "Perfumes",
     "imagen": "/uploads/noble-blush-lattafa.jpg",
     "agotado": false,
@@ -235,8 +370,8 @@
   },
   {
     "id": "bbc2ca41-73c4-453a-ad2b-ca3f137118fd",
-    "nombre": "Stronger With You Intensely by G. Armani",
-    "precio": 197100,
+    "nombre": "Stronger With You Intensely by Giorgio Armani",
+    "precio": 200000,
     "categoria": "Perfumes",
     "imagen": "/uploads/27d70eaa-ec09-49e9-a6c7-35d58dad832b.jpg",
     "agotado": false,

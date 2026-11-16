@@ -50,7 +50,7 @@ function home(html, { base, productos, whatsapp }) {
   const hayIceKing = productos.some((p) => /ice\s?king/i.test(p.nombre));
   const titulo = (hayIceKing ? 'Elfbar Ice King 40K y vapes descartables' : 'Vapes descartables, pods y perfumes') + ' en Buenos Aires | ' + NOMBRE;
   const desc = (hayIceKing ? 'Comprá Elfbar Ice King 40K, vapes descartables, pods y perfumes en Buenos Aires. ' : 'Vapes descartables, recargables, pods, líquidos y perfumes en Buenos Aires. ') +
-    'Envíos a todo el país y moto en CABA y GBA. Pedí por WhatsApp.';
+    'Envío en el día en CABA y GBA y envíos a todo el país. Pedí por WhatsApp.';
   const og = abs(base, (productos.find((p) => p.imagen) || {}).imagen);
   const head = `<title>${esc(titulo)}</title>
 <meta name="description" content="${esc(desc)}">
@@ -79,7 +79,7 @@ function producto(p, { base, productos, whatsapp }) {
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: base + '/' },
     { '@type': 'ListItem', position: 2, name: p.categoria, item: base + '/' },
     { '@type': 'ListItem', position: 3, name: p.nombre, item: url }] };
-  const msg = `Hola ${NOMBRE}! Quiero pedir: ${p.nombre}${precioTxt ? ' (' + precioTxt + ')' : ''}`;
+  const msg = `Hola ${NOMBRE}! Quiero pedir: ${p.nombre}${precioTxt ? ' (' + precioTxt + ')' : ''}. ¿Me lo pueden mandar hoy? Mi zona es: `;
   const relacionados = productos.filter((x) => x.id !== p.id).sort((a, b) => !!a.agotado - !!b.agotado || (b.categoria === p.categoria) - (a.categoria === p.categoria)).slice(0, 8);
   const foto = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" width="900" height="900">` : '<img class="vacia" src="/img/mascota.svg" alt="">';
   return `<!doctype html>
@@ -114,7 +114,7 @@ ${jsonLd(migas)}
     </div>
   </div>
 </div>
-<div class="aviso">Envíos a todo el país · <b>Moto en CABA y GBA</b></div>
+<div class="aviso"><span><b>Envío en el día</b> en CABA y GBA pidiendo antes de las 18 h</span><span class="sep" aria-hidden="true">·</span><span class="extra">Productos <b>100% originales</b></span></div>
 <header class="cab"><div class="wrap">
   <a class="logo" href="/" aria-label="${NOMBRE}, inicio"><img src="/img/logo.svg" alt="${NOMBRE}"></a>
   <a class="btn" href="${esc(waLink(whatsapp, msg))}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">${WA_SVG}<span>Escribinos</span></a>
@@ -129,7 +129,8 @@ ${jsonLd(migas)}
       <div class="precio">${precioTxt || 'Consultar precio'}</div>
       <p class="estado ${p.agotado ? 'no' : 'si'}">${p.agotado ? 'Sin stock por el momento' : 'Disponible'}</p>
       <a class="btn negro" ${p.agotado ? 'aria-disabled="true"' : ''} href="${esc(waLink(whatsapp, msg))}" target="_blank" rel="noopener">${p.agotado ? 'Consultar disponibilidad' : 'Pedir por WhatsApp'}</a>
-      <p class="texto">${esc(p.nombre)} en ${NOMBRE}. Se abre WhatsApp con el pedido listo y confirmamos stock y forma de pago. Moto en CABA y GBA, o envío a todo el país.</p>
+      ${p.agotado ? '' : '<ul class="garantias"><li><b>Llega hoy</b> en moto a CABA y GBA pidiendo antes de las 18 h</li><li><b>Original</b> y sellado</li><li><b>Pagás fácil:</b> efectivo o transferencia</li><li><b>Envíos a todo el país</b> con seguimiento</li></ul>'}
+      <p class="texto">${esc(p.nombre)} en ${NOMBRE}. Se abre WhatsApp con el pedido listo y confirmamos stock, zona y forma de pago.</p>
     </div>
   </article>
   ${relacionados.length ? `<section class="otros"><h2>Más productos</h2><div class="grilla">${relacionados.map(tarjetaHtml).join('')}</div></section>` : ''}

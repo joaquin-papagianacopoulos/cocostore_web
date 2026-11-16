@@ -21,8 +21,12 @@ button { font: inherit; cursor: pointer; }
 .wrap { width: min(1240px, 100% - 2 * var(--gutter)); margin-inline: auto; }
 
 /* Barra superior */
-.aviso { background: var(--negro); color: var(--blanco); font-size: 13px; font-weight: 600; text-align: center; padding: 9px var(--gutter); }
+.aviso { background: var(--negro); color: var(--blanco); font-size: 13px; font-weight: 600; text-align: center; padding: 9px var(--gutter); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
 .aviso b { color: var(--rojo); font-weight: 800; }
+.aviso .moto { width: 26px; height: 16px; flex: none; }
+.aviso .sep, .aviso .extra, .aviso .moto { display: none; }
+@media (min-width: 760px) { .aviso .sep, .aviso .extra { display: inline; } .aviso .moto { display: block; } }
+.moto, .confianza svg, .llega svg { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Cabecera */
 .cab { position: relative; z-index: 20; background: var(--blanco); border-bottom: var(--borde); }
@@ -56,6 +60,7 @@ button { font: inherit; cursor: pointer; }
 .s-zara { --fondo: var(--blanco); --barra: var(--rojo); color: var(--negro); }
 .s-perf { --fondo: var(--negro); --barra: var(--rojo); }
 .s-vape { --fondo: var(--rojo); --barra: var(--negro); }
+.s-hoy { --fondo: var(--rojo); --barra: var(--negro); }
 .hero-txt { padding: 36px 0 8px; }
 .hero h1 { font-size: clamp(36px, 5.4vw, 76px); line-height: .98; font-weight: 900; letter-spacing: -.035em; text-wrap: balance; }
 .hero h1 span { display: block; color: var(--negro); }
@@ -233,3 +238,122 @@ footer { padding-bottom: calc(28px + 72px + env(safe-area-inset-bottom)); } /* d
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ===== Rediseño: envío en el día + confianza ===== */
+
+/* Slide "Lo tenés hoy" */
+.sello { display: inline-block; margin: 0 0 16px !important; background: var(--negro); color: var(--blanco); font-size: 13px !important; font-weight: 800 !important; letter-spacing: .06em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; }
+.reloj { display: inline-flex; flex-direction: column; gap: 2px; margin-top: 24px; background: var(--blanco); color: var(--negro); border: var(--borde); border-radius: 16px; padding: 12px 18px; box-shadow: 6px 6px 0 var(--negro); }
+.reloj small { font-size: 13px; font-weight: 700; }
+.reloj small strong { color: var(--rojo); font-weight: 900; text-transform: uppercase; }
+.reloj .digitos { font-size: clamp(30px, 4vw, 44px); font-weight: 900; letter-spacing: -.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.reloj .digitos b { color: var(--rojo); }
+.reloj .digitos.manana { color: var(--rojo); font-size: clamp(24px, 3vw, 34px); }
+.hero-img { position: relative; }
+.hoy-badge { position: absolute; top: 16px; right: 6%; z-index: 2; width: clamp(84px, 11vw, 132px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--blanco); color: var(--rojo); border: 4px solid var(--negro); font-weight: 900; font-size: clamp(24px, 3.2vw, 40px); letter-spacing: -.03em; transform: rotate(-12deg); box-shadow: 5px 5px 0 var(--negro); }
+.slide.on .hoy-badge { animation: sello-in .6s cubic-bezier(.2, 1.6, .4, 1) .5s both; }
+@keyframes sello-in { from { opacity: 0; transform: scale(2.2) rotate(-30deg); } to { opacity: 1; transform: scale(1) rotate(-12deg); } }
+
+/* Franja de confianza */
+.confianza { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-block: 22px 0; }
+.confianza li { display: flex; align-items: center; gap: 12px; border: var(--borde); border-radius: 14px; padding: 12px; background: var(--blanco); }
+.confianza svg { width: 34px; height: 34px; flex: none; color: var(--rojo); }
+.confianza li:first-child svg { width: 40px; }
+.confianza b { display: block; font-size: 14px; font-weight: 900; line-height: 1.2; }
+.confianza span { display: block; font-size: 12px; font-weight: 600; color: #555; line-height: 1.3; }
+.sec-cats { padding-top: clamp(28px, 4vw, 48px); }
+
+/* Etiquetas en las tarjetas */
+.prod .cinta.nuevo { background: var(--rojo); border: 2px solid var(--negro); }
+.llega { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 13px; font-weight: 800; color: #0a7a3a; }
+.llega svg { width: 22px; height: 14px; }
+
+/* Fila "Recién llegados" */
+.sec-nuevos { padding-top: 0; }
+.riel-mando { display: none; gap: 8px; }
+.riel-mando .flecha { top: 0; }
+.riel { display: grid; grid-auto-flow: column; grid-auto-columns: 62%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 8px 12px 0; overscroll-behavior-x: contain; }
+.riel::-webkit-scrollbar { display: none; }
+.riel .prod { scroll-snap-align: start; }
+
+/* ¿Cuándo te llega? */
+.envios { background: var(--negro); color: var(--blanco); border-block: var(--borde); }
+.zonas { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.zona { border: 2px solid #333; border-radius: var(--radio); padding: 20px; background: #111; }
+.zona.hoy { border-color: var(--rojo); }
+.zona .etq { display: inline-block; font-size: 12px; font-weight: 900; letter-spacing: .08em; padding: 4px 10px; border-radius: 999px; background: #333; }
+.zona.hoy .etq { background: var(--rojo); }
+.zona h3 { font-size: 26px; font-weight: 900; letter-spacing: -.02em; margin: 10px 0 4px; }
+.zona p { font-weight: 500; color: #ddd; }
+.zona b { color: var(--blanco); }
+.envios-cta { display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; flex-wrap: wrap; margin-top: 22px; }
+.envios-cta p { font-size: clamp(18px, 2.2vw, 24px); font-weight: 900; letter-spacing: -.01em; }
+.envios-cta .btn { border-color: var(--rojo); }
+.envios-cta .btn:hover { background: var(--blanco); color: var(--negro); border-color: var(--blanco); }
+
+/* Ya nos eligieron */
+.prueba-grilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.tarjeta-zara { position: relative; display: block; border: var(--borde); border-radius: var(--radio); overflow: hidden; text-decoration: none; min-height: 320px; background: var(--negro); }
+.tarjeta-zara img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform .4s; }
+.tarjeta-zara:hover img { transform: scale(1.04); }
+.tarjeta-zara div { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 20px 18px; background: linear-gradient(transparent, rgba(0, 0, 0, .85)); color: var(--blanco); }
+.tarjeta-zara b { display: block; font-size: 20px; font-weight: 900; }
+.tarjeta-zara span { font-size: 14px; font-weight: 700; color: #ffb3b5; }
+.resenas { display: grid; gap: 12px; }
+.resenas[hidden] { display: none; }
+.resena { margin: 0; border: var(--borde); border-radius: var(--radio); padding: 18px; background: var(--blanco); }
+.resena .estrellas { color: var(--rojo); letter-spacing: 2px; font-size: 18px; }
+.resena blockquote { margin: 6px 0 10px; font-weight: 600; }
+.resena figcaption { font-size: 14px; font-weight: 800; }
+.tarjeta-ig { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; border: var(--borde); border-radius: var(--radio); padding: 24px; background: var(--rojo); color: var(--blanco); text-decoration: none; }
+.tarjeta-ig svg { width: 44px; height: 44px; fill: none; stroke: currentColor; stroke-width: 2; }
+.tarjeta-ig b { font-size: 26px; font-weight: 900; letter-spacing: -.02em; }
+.tarjeta-ig span { font-weight: 600; }
+.tarjeta-ig .btn { margin-top: 8px; background: var(--negro); }
+.tarjeta-ig:hover .btn { background: var(--blanco); color: var(--negro); }
+
+/* Preguntas frecuentes */
+.faq { background: var(--papel); border-top: var(--borde); }
+.faq-lista { display: grid; gap: 10px; max-width: 860px; }
+.faq details { background: var(--blanco); border: var(--borde); border-radius: 14px; }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 52px 16px 18px; font-weight: 800; font-size: 17px; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; position: absolute; right: 16px; top: 50%; translate: 0 -50%; width: 28px; height: 28px; border-radius: 50%; background: var(--rojo); color: var(--blanco); display: grid; place-items: center; font-weight: 900; }
+.faq details[open] summary::after { content: '–'; background: var(--negro); }
+.faq details p { padding: 0 18px 18px; font-weight: 500; max-width: 46em; }
+
+@media (min-width: 600px) {
+  .riel { grid-auto-columns: calc((100% - 2 * 16px) / 3); gap: 16px; }
+  .zonas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .prueba-grilla { grid-template-columns: 1.2fr 1fr; }
+  .tarjeta-zara { grid-row: span 2; min-height: 420px; }
+}
+@media (min-width: 960px) {
+  .confianza { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+  .confianza li { padding: 16px 18px; }
+  .confianza b { font-size: 16px; } .confianza span { font-size: 13px; }
+  .riel-mando { display: flex; }
+  .riel { grid-auto-columns: calc((100% - 3 * 20px) / 4); gap: 20px; }
+  .prueba-grilla { grid-template-columns: 1.3fr 1fr; }
+}
+@media (min-width: 1400px) { .riel { grid-auto-columns: calc((100% - 4 * 20px) / 5); } }
+
+/* Banners con fotos reales de productos (las arma pintarVitrinas en app.js) */
+.vitrina { position: relative; height: 230px; max-width: 420px; margin: 4px auto 40px; width: 100%; }
+@media (min-width: 600px) { .vitrina { max-width: none; } }
+.vit { position: absolute; width: 46%; display: block; background: var(--blanco); color: var(--negro); text-decoration: none; border: 3px solid var(--negro); border-radius: 18px; padding: 6px 6px 10px; box-shadow: 7px 7px 0 var(--negro); transition: transform .2s, box-shadow .2s; }
+.vit img { width: 100%; aspect-ratio: 1; object-fit: contain; border-radius: 12px; background: var(--blanco); }
+.vit-txt { display: block; padding: 6px 6px 0; }
+.vit-txt b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12px; font-weight: 800; line-height: 1.2; }
+.vit-txt i { display: block; font-style: normal; font-weight: 900; font-size: 16px; color: var(--rojo); margin-top: 2px; }
+.vit.v1 { left: 0; top: 34px; transform: rotate(-7deg); z-index: 1; }
+.vit.v2 { left: 27%; top: 0; width: 48%; transform: rotate(2deg); z-index: 3; }
+.vit.v3 { right: 0; top: 52px; transform: rotate(8deg); z-index: 2; }
+.vit:hover { transform: rotate(0) translateY(-6px) scale(1.03); z-index: 4; box-shadow: 10px 10px 0 var(--negro); }
+.s-perf .vit { border-color: var(--blanco); box-shadow: 7px 7px 0 var(--rojo); }
+.vitrina .hoy-badge { top: -6px; right: -4px; z-index: 5; }
+.slide.on .vit { animation: vit-in .8s cubic-bezier(.2, 1.2, .3, 1) both; }
+.slide.on .vit.v2 { animation-delay: .12s; } .slide.on .vit.v3 { animation-delay: .24s; }
+@keyframes vit-in { from { opacity: 0; translate: 90px 40px; } to { opacity: 1; translate: 0 0; } }
+@media (min-width: 600px) { .vitrina { height: 400px; } .vit-txt b { font-size: 14px; } .vit-txt i { font-size: 18px; } }
+@media (min-width: 960px) { .vitrina { height: 460px; margin: 30px 0 40px; } .vit { padding: 8px 8px 12px; } .vit-txt i { font-size: 20px; } }

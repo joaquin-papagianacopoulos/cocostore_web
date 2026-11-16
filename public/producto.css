@@ -23,3 +23,6 @@
 .prod h3 a:hover { color: var(--rojo); }
 @media (max-width: 799px) { .ficha-info .btn { width: 100%; } .ficha-foto { aspect-ratio: 1; } }
 @media (min-width: 800px) { .ficha { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.garantias { list-style: none; padding: 14px 16px; margin: 6px 0 0; display: grid; gap: 8px; border: var(--borde); border-radius: 14px; background: var(--papel); width: 100%; }
+.garantias li { position: relative; padding-left: 28px; font-weight: 500; font-size: 15px; }
+.garantias li::before { content: '✓'; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--rojo); color: var(--blanco); font-size: 12px; font-weight: 900; display: grid; place-items: center; }

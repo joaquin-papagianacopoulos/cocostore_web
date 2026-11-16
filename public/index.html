@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Coco Store BA</title>
-<meta name="description" content="Vapes descartables, recargables, pods y líquidos. Envíos a todo el país y moto en CABA y GBA.">
+<meta name="description" content="Vapes descartables, recargables, pods, líquidos y perfumes. Envío en el día en CABA y GBA y envíos a todo el país.">
 <link rel="icon" href="/img/mascota.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,13 @@
   </div>
 </div>
 
-<div class="aviso">Envíos a todo el país · <b>Moto en CABA y GBA</b></div>
+<!-- Barra superior: cuenta regresiva al horario de corte del envío en el día (lo calcula app.js) -->
+<div class="aviso">
+  <svg class="moto" viewBox="0 0 32 20" aria-hidden="true"><circle cx="6" cy="15" r="4"/><circle cx="26" cy="15" r="4"/><path d="M6 15h9l4-7h5l2 7M19 8l-2-4h-4M13 9h-6"/></svg>
+  <span data-corte="aviso"><b>Envío en el día</b> en CABA y GBA</span>
+  <span class="sep" aria-hidden="true">·</span>
+  <span class="extra">Productos <b>100% originales</b></span>
+</div>
 
 <header class="cab">
   <div class="wrap">
@@ -47,7 +53,28 @@
   <div class="hero" id="banner" role="region" aria-roledescription="carrusel" aria-label="Novedades">
     <div class="slides">
 
-      <div class="slide s-zara on" data-t="7000">
+      <div class="slide s-hoy on" data-t="8000">
+        <div class="wrap">
+          <div class="hero-txt">
+            <p class="sello">Envío en el día · CABA y GBA</p>
+            <h1>Pedilo ahora. <span>Lo tenés hoy.</span></h1>
+            <p>Vapes originales y perfumes importados, entregados en moto en tu puerta. Sin vueltas: elegís, nos escribís y sale.</p>
+            <div class="reloj" data-corte="reloj" aria-live="off">
+              <small>Pedí antes de las 18 h y lo recibís hoy</small>
+            </div>
+            <div class="acciones">
+              <a class="btn" href="#productos" data-filtro="Todos">Ver productos</a>
+              <a class="btn blanco" data-wa href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+            </div>
+          </div>
+          <div class="hero-img" data-vitrina="Descartables">
+            <span class="hoy-badge" aria-hidden="true">HOY</span>
+            <img src="/img/mascota.svg" alt="El coco de Coco Store dándole una patada a una pelota">
+          </div>
+        </div>
+      </div>
+
+      <div class="slide s-zara" data-t="7000">
         <div class="wrap">
           <div class="hero-txt">
             <h1>Zaramay ya compró <span>en Coco Store.</span></h1>
@@ -68,13 +95,13 @@
         <div class="wrap">
           <div class="hero-txt">
             <h1>Perfumes árabes, <span>de nicho y de diseñador.</span></h1>
-            <p>Fragancias importadas para todos los gustos. Elegí la tuya y te la llevamos.</p>
+            <p>Fragancias importadas para todos los gustos. Elegí la tuya y te la llevamos hoy.</p>
             <div class="acciones">
               <a class="btn" href="#productos" data-filtro="Perfumes">Ver perfumes</a>
               <a class="btn blanco" data-wa href="#" target="_blank" rel="noopener">Consultar por WhatsApp</a>
             </div>
           </div>
-          <div class="frascos" aria-hidden="true">
+          <div class="frascos" aria-hidden="true" data-vitrina="Perfumes">
             <figure class="fr a">
               <svg viewBox="0 0 120 200"><rect x="40" y="6" width="40" height="30" rx="6"/><rect x="50" y="36" width="20" height="16"/><path d="M60 52c-34 0-50 26-50 62 0 42 22 78 50 78s50-36 50-78c0-36-16-62-50-62Z"/><path class="brillo" d="M32 110c0-20 8-34 20-42"/></svg>
               <figcaption>Árabes</figcaption>
@@ -91,20 +118,6 @@
         </div>
       </div>
 
-      <div class="slide s-vape" data-t="6500">
-        <div class="wrap">
-          <div class="hero-txt">
-            <h1>Vapes originales <span>a tu puerta.</span></h1>
-            <p>Descartables, recargables, pods y líquidos. Elegí, escribinos por WhatsApp y te lo llevamos.</p>
-            <div class="acciones">
-              <a class="btn" href="#productos" data-filtro="Todos">Ver los vapes</a>
-              <a class="btn blanco" data-wa href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-            </div>
-          </div>
-          <div class="hero-img"><img src="/img/mascota.svg" alt="El coco de Coco Store dándole una patada a una pelota"></div>
-        </div>
-      </div>
-
     </div>
 
     <div class="mando wrap">
@@ -114,10 +127,43 @@
     </div>
   </div>
 
-  <section>
+  <!-- Por qué comprarnos: cuatro señales de confianza justo debajo del banner -->
+  <ul class="confianza wrap" aria-label="Por qué comprar en Coco Store">
+    <li>
+      <svg viewBox="0 0 32 20" aria-hidden="true"><circle cx="6" cy="15" r="4"/><circle cx="26" cy="15" r="4"/><path d="M6 15h9l4-7h5l2 7M19 8l-2-4h-4M13 9h-6"/></svg>
+      <div><b>Envío en el día</b><span>En moto por CABA y GBA</span></div>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+      <div><b>100% originales</b><span>Sellados, de marca</span></div>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg>
+      <div><b>Pagás fácil</b><span data-pagos>Efectivo o transferencia</span></div>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z"/><path d="M8 9.5h8M8 12.5h5"/></svg>
+      <div><b>Atención real</b><span>Te responde una persona</span></div>
+    </li>
+  </ul>
+
+  <section class="sec-cats">
     <div class="wrap">
       <div class="titulo"><h2>Qué estás buscando</h2></div>
       <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <section class="sec-nuevos" id="sec-nuevos" hidden>
+    <div class="wrap">
+      <div class="titulo">
+        <h2>Recién llegados</h2>
+        <div class="riel-mando">
+          <button class="flecha" type="button" data-riel="-1" aria-label="Ver anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+          <button class="flecha" type="button" data-riel="1" aria-label="Ver más"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="riel" id="nuevos"></div>
     </div>
   </section>
 
@@ -128,14 +174,90 @@
     </div>
   </section>
 
+  <!-- Envíos: lo que más vende es saber cuándo llega -->
+  <section class="envios" id="envios">
+    <div class="wrap">
+      <div class="titulo"><h2>¿Cuándo te llega?</h2></div>
+      <div class="zonas">
+        <article class="zona hoy">
+          <span class="etq">HOY</span>
+          <h3>CABA</h3>
+          <p>Entrega en moto en el día pidiendo antes de las <b data-corte-hora>18 h</b>.</p>
+        </article>
+        <article class="zona hoy">
+          <span class="etq">HOY</span>
+          <h3>GBA</h3>
+          <p>Entrega en moto en el día pidiendo antes de las <b data-corte-hora>18 h</b>. Coordinamos el horario por WhatsApp.</p>
+        </article>
+        <article class="zona">
+          <span class="etq">TODO EL PAÍS</span>
+          <h3>Interior</h3>
+          <p>Despachamos por correo y te pasamos el número de seguimiento.</p>
+        </article>
+      </div>
+      <div class="envios-cta">
+        <p data-corte="texto">Pedí antes de las 18 h y lo recibís hoy.</p>
+        <a class="btn" data-wa href="#" target="_blank" rel="noopener">Quiero recibirlo hoy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prueba social: solo contenido real (Instagram, Zaramay y reseñas cargadas en app.js) -->
+  <section class="prueba">
+    <div class="wrap">
+      <div class="titulo"><h2>Ya nos eligieron</h2></div>
+      <div class="prueba-grilla">
+        <a class="tarjeta-zara" href="https://www.instagram.com/p/DMobGvFJYV_/" target="_blank" rel="noopener">
+          <img src="/img/zaramay-2.jpg" alt="Zaramay con la bolsa de su pedido de Coco Store" width="960" height="1278" loading="lazy">
+          <div><b>Zaramay compró en Coco Store</b><span>Ver el posteo en Instagram →</span></div>
+        </a>
+        <div class="resenas" id="resenas" hidden></div>
+        <a class="tarjeta-ig" href="https://www.instagram.com/cocostoreba/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          <b>@cocostoreba</b>
+          <span>Mirá entregas, novedades y lo que llega cada semana.</span>
+          <span class="btn">Seguinos en Instagram</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="titulo"><h2>Cómo comprar</h2></div>
       <ol class="pasos">
         <li><b>Elegí tu producto</b><p>Mirá el catálogo y tocá “Pedir” en el que te guste.</p></li>
-        <li><b>Escribinos</b><p>Se abre WhatsApp con el pedido listo. Confirmamos stock y forma de pago.</p></li>
-        <li><b>Recibilo</b><p>Moto en CABA y GBA, o envío a todo el país.</p></li>
+        <li><b>Escribinos</b><p>Se abre WhatsApp con el pedido listo. Confirmamos stock, zona y forma de pago.</p></li>
+        <li><b>Recibilo hoy</b><p>Moto en el día en CABA y GBA, o envío por correo a todo el país.</p></li>
       </ol>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="wrap">
+      <div class="titulo"><h2>Preguntas frecuentes</h2></div>
+      <div class="faq-lista">
+        <details open>
+          <summary>¿De verdad llega hoy?</summary>
+          <p>Sí. En CABA y GBA, si pedís antes de las <b data-corte-hora>18 h</b> te lo llevamos en moto ese mismo día. Si pedís más tarde, sale a primera hora del día siguiente.</p>
+        </details>
+        <details>
+          <summary>¿Los productos son originales?</summary>
+          <p>Sí, todos. Vendemos productos sellados de marca, los mismos que ves en las fotos.</p>
+        </details>
+        <details>
+          <summary>¿Cómo pago?</summary>
+          <p><span data-pagos>Efectivo o transferencia</span>. Te confirmamos el total con el envío antes de que pagues.</p>
+        </details>
+        <details>
+          <summary>¿Hacen envíos al interior?</summary>
+          <p>Sí, despachamos por correo a todo el país y te pasamos el número de seguimiento.</p>
+        </details>
+        <details>
+          <summary>¿Tengo que crear una cuenta?</summary>
+          <p>No. Tocás “Pedir por WhatsApp”, se abre el chat con tu pedido escrito y lo cerramos ahí mismo.</p>
+        </details>
+      </div>
     </div>
   </section>
 </main>
@@ -144,7 +266,7 @@
   <div class="wrap">
     <div>
       <img src="/img/logo.svg" alt="Coco Store BA">
-      <p style="margin-top:14px;max-width:26em">Importados con envío a todo el país. Vapes, pods, líquidos y perfumes.</p>
+      <p style="margin-top:14px;max-width:26em">Vapes originales y perfumes importados. Envío en el día en CABA y GBA y a todo el país.</p>
     </div>
     <div>
       <h4>Contacto</h4>
@@ -153,8 +275,9 @@
     </div>
     <div>
       <h4>Envíos</h4>
-      <p>Moto en CABA y GBA.</p>
+      <p>En el día en moto: CABA y GBA.</p>
       <p>Correo a todo el país.</p>
+      <p>Pagos: <span data-pagos>Efectivo o transferencia</span>.</p>
     </div>
     <p class="legal">Venta exclusiva a mayores de 18 años. Los precios y el stock pueden cambiar sin aviso.</p>
   </div>
