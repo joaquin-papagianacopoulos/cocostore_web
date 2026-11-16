@@ -10,6 +10,13 @@
 [functions]
   node_bundler = "esbuild"
 
+# Dominio viejo -> dominio nuevo (301 permanente, lo pide Google para el "Cambio de dirección")
+[[redirects]]
+  from = "https://cocostoreba.netlify.app/*"
+  to = "https://cocostoreba.com/:splat"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/admin"
   to = "/admin.html"

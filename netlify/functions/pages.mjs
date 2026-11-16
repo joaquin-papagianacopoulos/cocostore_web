@@ -2,8 +2,16 @@
 import * as C from '../lib/common.mjs';
 import seo from '../../seo.js';
 
+// Dominio viejo: todo se manda con 301 al dominio nuevo (las funciones con ruta propia no pasan por netlify.toml)
+const DOMINIO_VIEJO = 'cocostoreba.netlify.app';
+const DOMINIO_NUEVO = 'https://cocostoreba.com';
+
 export default async (req) => {
-  const url = new URL(req.url).pathname;
+  const u = new URL(req.url);
+  if (u.host === DOMINIO_VIEJO) {
+    return new Response(null, { status: 301, headers: { Location: DOMINIO_NUEVO + u.pathname + u.search, 'Cache-Control': 'public, max-age=3600' } });
+  }
+  const url = u.pathname;
   const base = C.baseUrl(req);
   // El CDN de Netlify guarda la página 60 s: menos ejecuciones, y los cambios del panel se ven en ~1 minuto.
   const cdn = { 'Cache-Control': 'public, max-age=0, must-revalidate', 'Netlify-CDN-Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' };
