@@ -102,8 +102,16 @@ function tarjeta(p) {
   const art = el('article', 'prod' + (p.agotado ? ' agotado' : ''));
   const foto = el('div', 'foto');
   const img = el('img');
-  img.alt = p.nombre; img.loading = 'lazy';
-  if (p.imagen) img.src = p.imagen; else { img.src = '/img/mascota.svg'; img.className = 'vacia'; img.alt = ''; }
+  img.alt = p.nombre; img.loading = 'lazy'; img.decoding = 'async'; img.width = 400; img.height = 400;
+  if (p.imagen) {
+    // aparece suave cuando termina de cargar (mientras tanto se ve un fondo gris animado)
+    img.className = 'cargando';
+    const listo = () => img.classList.remove('cargando');
+    img.addEventListener('load', listo, { once: true });
+    img.addEventListener('error', () => { img.src = '/img/mascota.svg'; img.className = 'vacia'; img.alt = ''; }, { once: true });
+    img.src = p.imagen;
+    if (img.complete) listo();
+  } else { img.src = '/img/mascota.svg'; img.className = 'vacia'; img.alt = ''; }
   foto.append(img);
   if (p.agotado) foto.append(el('span', 'cinta', 'Agotado'));
   else if (idsNuevos.has(p.id)) foto.append(el('span', 'cinta nuevo', 'Nuevo'));
