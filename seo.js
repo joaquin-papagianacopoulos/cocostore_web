@@ -25,6 +25,13 @@ function conSlugs(lista) {
 }
 
 const abs = (base, ruta) => (ruta ? (/^https?:/.test(ruta) ? ruta : base + ruta) : base + '/img/mascota.png');
+// Texto alternativo de las fotos: describe qué es el producto (lo que Google Imágenes lee)
+const altDe = (p) => {
+  const n = String(p.nombre).replace(/\s+/g, ' ').trim();
+  if (p.categoria === 'Descartables') return `Vape descartable ${n} – Coco Store BA`;
+  if (p.categoria === 'Perfumes') return `Perfume ${n} original – Coco Store BA`;
+  return `${n} – Coco Store BA`;
+};
 const marca = (n) => (/^elf\s?bar/i.test(n) ? 'Elf Bar' : NOMBRE);
 
 function ofertaLd(p, base) {
@@ -35,7 +42,7 @@ function ofertaLd(p, base) {
 }
 
 function tarjetaHtml(p) {
-  const img = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" loading="lazy">` : '<img class="vacia" src="/img/mascota.svg" alt="" loading="lazy">';
+  const img = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(altDe(p))}" loading="lazy">` : '<img class="vacia" src="/img/mascota.svg" alt="" loading="lazy">';
   return `<article class="prod${p.agotado ? ' agotado' : ''}"><div class="foto">${img}${p.agotado ? '<span class="cinta">Agotado</span>' : ''}</div>` +
     `<div class="info"><span class="cat-nombre">${esc(p.categoria)}</span><h3><a href="/p/${esc(p.slug)}">${esc(p.nombre)}</a></h3>` +
     `<div class="precio">${p.precio > 0 ? peso.format(p.precio) : 'Consultar precio'}</div></div></article>`;
@@ -47,8 +54,8 @@ function waLink(whatsapp, msg) {
 
 // ---------- Home ----------
 function home(html, { base, productos, whatsapp }) {
-  const titulo = `Vapes en Buenos Aires | Descartables con envío en el día | ${NOMBRE}`;
-  const desc = 'Vapes descartables originales en Buenos Aires: Elfbar Ice King 40K, Ignite, Dinner Lady, The Black Sheep y perfumes importados. Envío en el día en CABA y GBA. Pedí por WhatsApp.';
+  const titulo = `Vapes y pods descartables en Buenos Aires | Elfbar, Ignite | ${NOMBRE}`;
+  const desc = 'Vapers y pods descartables originales en Buenos Aires: Elf Bar Ice King 40K, Ignite, Dinner Lady, The Black Sheep y perfumes importados. Envío en el día en CABA y GBA. Pedí por WhatsApp.';
   const og = abs(base, (productos.find((p) => p.imagen) || {}).imagen);
   const head = `<title>${esc(titulo)}</title>
 <meta name="description" content="${esc(desc)}">
@@ -69,14 +76,36 @@ ${jsonLd({ '@context': 'https://schema.org', '@type': 'ItemList', itemListElemen
 // Si agregás una, sumá también su ruta a netlify/functions/pages.mjs (config.path).
 const COLECCIONES = [
   { slug: 'vapes-descartables', nombre: 'Vapes descartables', filtro: (p) => p.categoria === 'Descartables',
-    titulo: 'Vapes descartables en Buenos Aires con envío en el día',
+    titulo: 'Vapes y vapers descartables en Buenos Aires con envío en el día',
     h1: 'Vapes descartables en Buenos Aires',
+    faq: [
+      ['¿Cuánto dura un vape descartable?', 'Depende del modelo: se mide en pitadas. Un Elfbar Ice King 40K llega a unas 40.000 pitadas y un Dinner Lady 50K a unas 50.000. En uso diario, un equipo grande puede durar varias semanas.'],
+      ['¿Los vapes descartables se cargan?', 'Los modelos de gran duración como Elfbar Ice King 40K, EBCREATE y Dinner Lady traen batería recargable por USB-C. Cuando se termina el líquido, se tiran.'],
+      ['¿Hacen envíos?', 'Sí. En CABA y GBA enviamos en el día en moto si pedís antes de las 18 h, y despachamos al resto del país por correo con número de seguimiento.'],
+      ['¿Cómo se paga?', 'En efectivo o por transferencia. Armás el pedido y confirmamos stock, zona y forma de pago por WhatsApp.'],
+      ['¿Los productos son originales?', 'Sí, todos son originales y llegan sellados.']],
     intro: 'Comprá vapes descartables originales en CABA y GBA: Elfbar Ice King 40K, Ignite V400, Dinner Lady 50K, The Black Sheep y más. Pedí por WhatsApp antes de las 18 h y lo recibís hoy en moto.',
     texto: ['Todos nuestros vapes descartables son originales y vienen sellados. Trabajamos con las marcas más pedidas en Argentina y sumamos sabores nuevos todas las semanas.',
       'Hacemos envío en el día en moto por toda la Ciudad de Buenos Aires y el Gran Buenos Aires, y despachamos por correo al resto del país con número de seguimiento.'] },
+  { slug: 'pods-descartables', nombre: 'Pods descartables', filtro: (p) => p.categoria === 'Descartables',
+    titulo: 'Pods descartables en Buenos Aires: Elfbar, Ignite y más, envío en el día',
+    h1: 'Pods descartables en Buenos Aires',
+    intro: 'Pods descartables originales de Elfbar, Ignite, Dinner Lady y The Black Sheep, con sabores frutales y con hielo. Envío en el día en CABA y GBA y a todo el país.',
+    texto: ['Un pod descartable es un vape listo para usar: viene cargado con líquido y batería, sin mantenimiento ni recargas de líquido. Es la forma más simple de empezar o de tener siempre a mano tu sabor favorito.',
+      'Elegí por duración (de 30K a 50K pitadas), por marca o por sabor. Tocá “Pedir” y se abre WhatsApp con el pedido listo; si pedís antes de las 18 h lo recibís hoy.'],
+    faq: [
+      ['¿Qué es un pod descartable?', 'Es un vape de un solo uso que ya trae líquido y batería. No hay que armar ni rellenar nada.'],
+      ['¿Cuál es la diferencia entre un pod descartable y un vape recargable?', 'El descartable se usa hasta que se termina el líquido y se tira. El recargable permite cambiar cartuchos o rellenar el líquido.'],
+      ['¿Qué marcas de pods descartables tienen?', 'Trabajamos con Elfbar (Ice King 40K y EBCREATE), Ignite V400, Dinner Lady 50K y The Black Sheep.'],
+      ['¿Cuánto tarda el envío?', 'En CABA y GBA llega en el día si pedís antes de las 18 h. Al interior, por correo con seguimiento.']] },
   { slug: 'elfbar', nombre: 'Elfbar', filtro: (p) => /elf\s?bar/i.test(p.nombre),
     titulo: 'Elfbar en Argentina: Ice King 40K y EBCREATE, precio y envío en el día',
     h1: 'Elfbar en Buenos Aires: Ice King 40K y EBCREATE',
+    faq: [
+      ['¿Cuántas pitadas tiene el Elf Bar Ice King 40K?', 'Hasta 40.000 pitadas, con pantalla que muestra batería y nivel de líquido, y carga por USB-C.'],
+      ['¿Qué diferencia hay entre Elfbar Ice King y EBCREATE?', 'Los dos son descartables de larga duración. El Ice King se destaca por sus sabores con hielo; el EBCREATE tiene un catálogo amplio de sabores frutales. Consultanos cuál tenemos en stock.'],
+      ['¿Cuánto sale un Elfbar en Argentina?', 'El precio figura en cada producto de esta página y se actualiza con el stock. Pagás en efectivo o transferencia.'],
+      ['¿Hacen envío en el día?', 'Sí, en CABA y GBA pidiendo antes de las 18 h. Al resto del país enviamos por correo.']],
     intro: 'Elfbar Ice King 40K y Elfbar EBCREATE originales, con todos los sabores disponibles en stock. Envío en el día en CABA y GBA.',
     texto: ['El Elfbar Ice King 40K es uno de los vapes descartables más vendidos de Argentina: hasta 40.000 pitadas, pantalla de batería y sabores frutales con y sin hielo.',
       'Elegí tu sabor, tocá “Pedir” y se abre WhatsApp con el pedido listo. Si pedís antes de las 18 h te lo llevamos hoy.'] },
@@ -166,8 +195,9 @@ ${cuerpo}
 function producto(p, { base, productos, whatsapp }) {
   const url = `${base}/p/${p.slug}`;
   const precioTxt = p.precio > 0 ? peso.format(p.precio) : '';
-  const titulo = `${p.nombre}${precioTxt ? ' – ' + precioTxt : ''} | Envío en el día | ${NOMBRE}`;
-  const desc = `Comprá ${p.nombre}${precioTxt ? ' a ' + precioTxt : ''} en ${NOMBRE}. ${p.agotado ? 'Sin stock por el momento.' : 'Original y en stock.'} Envío en el día en CABA y GBA y a todo el país. Pedilo por WhatsApp.`;
+  const tipoTxt = p.categoria === 'Descartables' ? 'Vape descartable ' : p.categoria === 'Perfumes' ? 'Perfume ' : '';
+  const titulo = `${tipoTxt}${p.nombre}${precioTxt ? ' – ' + precioTxt : ''} | Envío en el día | ${NOMBRE}`;
+  const desc = `Comprá ${tipoTxt.toLowerCase()}${p.nombre}${precioTxt ? ' a ' + precioTxt : ''} en ${NOMBRE}. ${p.agotado ? 'Sin stock por el momento.' : 'Original y en stock.'} Envío en el día en CABA y GBA y a todo el país. Pedilo por WhatsApp.`;
   const img = abs(base, p.imagen);
   const col = COLECCIONES.find((c) => c.slug === slugCategoria(p.categoria));
   const ld = { '@context': 'https://schema.org', '@type': 'Product', name: p.nombre, image: [img], description: desc, sku: String(p.id),
@@ -178,7 +208,7 @@ function producto(p, { base, productos, whatsapp }) {
     { '@type': 'ListItem', position: 3, name: p.nombre, item: url }] };
   const msg = `Hola ${NOMBRE}! Quiero pedir: ${p.nombre}${precioTxt ? ' (' + precioTxt + ')' : ''}. ¿Me lo pueden mandar hoy? Mi zona es: `;
   const relacionados = productos.filter((x) => x.id !== p.id).sort((a, b) => !!a.agotado - !!b.agotado || (b.categoria === p.categoria) - (a.categoria === p.categoria)).slice(0, 8);
-  const foto = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" width="900" height="900">` : '<img class="vacia" src="/img/mascota.svg" alt="">';
+  const foto = p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(altDe(p))}" width="900" height="900">` : '<img class="vacia" src="/img/mascota.svg" alt="">';
   const cuerpo = `  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> › <a href="${col ? '/' + col.slug : '/'}">${esc(col ? col.nombre : p.categoria)}</a> › <span>${esc(p.nombre)}</span></nav>
   <article class="ficha">
     <div class="ficha-foto">${foto}</div>
@@ -214,6 +244,8 @@ function coleccion(slug, { base, productos, whatsapp }) {
     { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Inicio', item: base + '/' },
       { '@type': 'ListItem', position: 2, name: c.nombre, item: url }] }];
+  if (c.faq) ld.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: c.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
+  const faqHtml = c.faq ? `<section class="col-texto"><h2>Preguntas frecuentes sobre ${esc(c.nombre.toLowerCase())}</h2>${c.faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>` : '';
   const otras = coleccionesCon(productos).filter((x) => x.slug !== c.slug).map((x) => `<a class="chip" href="/${x.slug}">${esc(x.nombre)}</a>`).join('');
   const cuerpo = `  <nav class="migas" aria-label="Ruta"><a href="/">Inicio</a> › <span>${esc(c.nombre)}</span></nav>
   <header class="col-cab">
@@ -226,7 +258,8 @@ function coleccion(slug, { base, productos, whatsapp }) {
     <h2>Sobre ${esc(c.nombre)} en ${NOMBRE}</h2>
     ${c.texto.map((t) => `<p>${esc(t)}</p>`).join('\n    ')}
     ${otras ? `<p class="chips">Mirá también: ${otras}</p>` : ''}
-  </section>`;
+  </section>
+  ${faqHtml}`;
   return marco({ titulo: `${c.titulo} | ${NOMBRE}`, desc, url, img, tipo: 'website', ld, cuerpo, whatsapp, msg, productos });
 }
 

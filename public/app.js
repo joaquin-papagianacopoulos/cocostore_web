@@ -18,6 +18,14 @@ let whatsapp = '';
 let filtro = 'Todos';
 let texto = '';
 
+// Texto alternativo descriptivo (igual al que arma el servidor)
+function altDe(p) {
+  const n = String(p.nombre).replace(/\s+/g, ' ').trim();
+  if (p.categoria === 'Descartables') return 'Vape descartable ' + n + ' – Coco Store BA';
+  if (p.categoria === 'Perfumes') return 'Perfume ' + n + ' original – Coco Store BA';
+  return n + ' – Coco Store BA';
+}
+
 function el(tag, clase, txt) {
   const e = document.createElement(tag);
   if (clase) e.className = clase;
@@ -102,7 +110,7 @@ function tarjeta(p) {
   const art = el('article', 'prod' + (p.agotado ? ' agotado' : ''));
   const foto = el('div', 'foto');
   const img = el('img');
-  img.alt = p.nombre; img.loading = 'lazy'; img.decoding = 'async'; img.width = 400; img.height = 400;
+  img.alt = altDe(p); img.loading = 'lazy'; img.decoding = 'async'; img.width = 400; img.height = 400;
   if (p.imagen) {
     // aparece suave cuando termina de cargar (mientras tanto se ve un fondo gris animado)
     img.className = 'cargando';
@@ -191,7 +199,7 @@ function pintarVitrinas() {
     lista.forEach((p, i) => {
       const a = el('a', `vit v${i + 1}`);
       a.href = p.slug ? '/p/' + p.slug : '#productos';
-      const img = el('img'); img.src = p.imagen; img.alt = p.nombre; img.width = 400; img.height = 400;
+      const img = el('img'); img.src = p.imagen; img.alt = altDe(p); img.width = 400; img.height = 400;
       const t = el('span', 'vit-txt');
       t.append(el('b', '', p.nombre), el('i', '', p.precio > 0 ? peso.format(p.precio) : 'Consultar'));
       a.append(img, t); v.append(a);

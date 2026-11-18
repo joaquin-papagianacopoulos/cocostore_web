@@ -35,4 +35,4 @@ export default async (req) => {
 
 // Las rutas de colecciones tienen que coincidir con COLECCIONES en seo.js (Netlify necesita la lista escrita acá)
 export const config = { path: ['/', '/p/*', '/sitemap.xml', '/robots.txt',
-  '/vapes-descartables', '/elfbar', '/ignite', '/dinner-lady', '/the-black-sheep', '/perfumes', '/perfumes-arabes'] };
+  '/vapes-descartables', '/pods-descartables', '/elfbar', '/ignite', '/dinner-lady', '/the-black-sheep', '/perfumes', '/perfumes-arabes'] };
