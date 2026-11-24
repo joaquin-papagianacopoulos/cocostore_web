@@ -63,7 +63,7 @@ function home(html, { base, productos, whatsapp }) {
 <meta property="og:type" content="website"><meta property="og:site_name" content="${NOMBRE}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${base}/"><meta property="og:image" content="${esc(og)}">
 <meta name="twitter:card" content="summary_large_image">
-${jsonLd({ '@context': 'https://schema.org', '@type': 'Store', name: NOMBRE, url: base + '/', image: base + '/img/logo.png',
+${jsonLd({ '@context': 'https://schema.org', '@type': 'Store', name: NOMBRE, url: base + '/', image: base + '/img/logo.png', logo: base + '/img/icono-512.png',
     areaServed: 'AR', sameAs: ['https://www.instagram.com/cocostoreba/'] })}
 ${jsonLd({ '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: productos.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${base}/p/${p.slug}`, name: p.nombre })) })}`;
   return html
@@ -150,7 +150,9 @@ function marco({ titulo, desc, url, img, tipo, ld, cuerpo, whatsapp, msg, produc
 <title>${esc(titulo)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
-<link rel="icon" href="/img/mascota.svg">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/icono-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="${tipo}"><meta property="og:site_name" content="${NOMBRE}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${esc(img)}">
 <meta name="twitter:card" content="summary_large_image">
