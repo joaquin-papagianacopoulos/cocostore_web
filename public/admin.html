@@ -30,8 +30,29 @@
   .msg.mal { color: var(--rojo); }
   .barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .barra .btn { width: auto; height: 40px; font-size: 14px; }
-  .fila { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 2px solid var(--papel); }
+  .fila { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 12px 8px; margin: 0 -8px; border-top: 2px solid var(--papel); border-radius: 12px; }
   .fila:first-child { border-top: 0; }
+  .fila.sel { background: #fff1f1; }
+  .fila label { display: grid; grid-template-columns: 26px 72px 1fr; gap: 14px; align-items: center; cursor: pointer; }
+  input[type=checkbox] { width: 22px; height: 22px; accent-color: var(--rojo); cursor: pointer; margin: 0; }
+  .nuevo { display: inline-block; margin-top: 3px; font-weight: 800; color: var(--rojo); }
+  .ayuda { font-weight: 600; color: #555; margin: -6px 0 14px; font-size: 14px; }
+  .filtros { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-bottom: 12px; }
+  .filtros input, .filtros select, .masivo select, .masivo input { height: 44px; border: var(--borde); border-radius: 12px; padding: 0 12px; font: 600 15px 'Montserrat', sans-serif; background: var(--blanco); min-width: 0; }
+  .todos { display: flex; align-items: center; gap: 10px; font-weight: 800; padding: 10px 0; cursor: pointer; }
+  .masivo { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 0 12px 12px; }
+  .masivo-in { width: min(760px, 100%); margin: 0 auto; background: var(--negro); color: var(--blanco); border-radius: var(--radio); padding: 14px 16px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+  .masivo-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .masivo-top .btn.ghost { color: var(--blanco); width: auto; height: auto; padding: 0; font-size: 14px; }
+  .masivo-campos { display: grid; grid-template-columns: 1.3fr 1fr 1.2fr auto; gap: 8px; }
+  .masivo .btn { height: 44px; width: auto; }
+  .masivo .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .masivo .btn:not(:disabled):hover { background: var(--blanco); color: var(--negro); }
+  .masivo .msg { margin-top: 8px; min-height: 0; }
+  .masivo .msg.mal { color: #ff8a8d; }
+  body.con-masivo { padding-bottom: 190px; }
+  #m-lista:empty { display: none; }
+  .deshacer { margin-left: 8px; background: none; border: 0; padding: 0; font: inherit; color: var(--rojo); text-decoration: underline; cursor: pointer; }
   .fila img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; border: var(--borde); background: var(--papel); }
   .fila img.vacia { object-fit: contain; padding: 10px; }
   .fila b { display: block; line-height: 1.25; }
@@ -42,7 +63,8 @@
   .acc .borrar:hover { background: var(--rojo); border-color: var(--rojo); }
   .btn.ghost { background: none; border: 0; color: var(--negro); font-weight: 700; text-decoration: underline; }
   .btn.ghost:hover { background: none; color: var(--rojo); }
-  @media (max-width: 520px) { .fila { grid-template-columns: 60px 1fr; } .acc { grid-column: 1 / -1; justify-content: flex-start; } .dos { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .masivo-campos { grid-template-columns: 1fr 1fr; } .masivo .btn { width: 100%; padding: 0 10px; font-size: 14px; white-space: nowrap; } .masivo select, .masivo input { font-size: 16px; padding: 0 8px; } .masivo-top { margin-bottom: 8px; } body.con-masivo { padding-bottom: 240px; } }
+  @media (max-width: 520px) { .fila { grid-template-columns: 1fr; } .fila label { grid-template-columns: 26px 60px 1fr; } .fila img { width: 60px; height: 60px; } .acc { justify-content: flex-start; padding-left: 40px; } .dos { grid-template-columns: 1fr; } .filtros { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -82,6 +104,13 @@
 
   <section class="caja" id="lista-caja" style="padding:20px 24px">
     <h2>Lo que tenés cargado</h2>
+    <p class="ayuda">Para cambiar precios de varios juntos, tildalos y elegí abajo cómo cambiarlos.</p>
+    <div class="filtros">
+      <input id="buscar" type="search" placeholder="Buscar por nombre (ej: elfbar)" aria-label="Buscar producto">
+      <select id="f-cat" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select>
+    </div>
+    <label class="todos"><input type="checkbox" id="todos"> <span id="todos-txt">Seleccionar todos</span></label>
+    <p class="msg" id="m-lista" role="status"></p>
     <div id="lista"></div>
   </section>
 
@@ -100,6 +129,30 @@
     <p class="msg" id="m-pass" role="status"></p>
   </form>
 </main>
+
+<div class="masivo" id="masivo" hidden>
+  <div class="masivo-in">
+    <div class="masivo-top"><b id="m-cant"></b><button class="btn ghost" type="button" id="desel">Quitar selección</button></div>
+    <div class="masivo-campos">
+      <select id="modo" aria-label="Cómo cambiar el precio">
+        <option value="fijo">Poner el precio en $</option>
+        <option value="subir%">Subir un %</option>
+        <option value="bajar%">Bajar un %</option>
+        <option value="sumar">Sumar $</option>
+        <option value="restar">Restar $</option>
+      </select>
+      <input id="valor" inputmode="decimal" autocomplete="off" aria-label="Valor">
+      <select id="redondeo" aria-label="Redondeo">
+        <option value="1">Sin redondeo</option>
+        <option value="100" selected>Redondeo 100</option>
+        <option value="500">Redondeo 500</option>
+        <option value="1000">Redondeo 1.000</option>
+      </select>
+      <button class="btn" type="button" id="aplicar" disabled>Aplicar</button>
+    </div>
+    <p class="msg" id="m-masivo" role="status"></p>
+  </div>
+</div>
 
 <script src="/admin.js"></script>
 </body>

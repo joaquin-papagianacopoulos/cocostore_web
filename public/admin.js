@@ -55,27 +55,135 @@ function limpiarForm() {
   $('cancelar').hidden = true;
 }
 
+// ---------- Selección y cambio de precios en masa ----------
+const elegidos = new Set(); // ids tildados (se mantienen aunque cambies el filtro)
+const sinTildes = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+function visibles() {
+  const q = sinTildes($('buscar').value.trim()), cat = $('f-cat').value;
+  return productos.filter((p) => (!cat || p.categoria === cat) && (!q || sinTildes(p.nombre).includes(q)));
+}
+
+// Lee el valor escrito: en % acepta decimales con coma ("7,5"); en pesos ignora puntos ("18.000")
+function valorEscrito() {
+  const t = $('valor').value.trim();
+  if (!t) return null;
+  const v = $('modo').value.endsWith('%') ? Number(t.replace(',', '.').replace(/[^\d.]/g, '')) : Number(t.replace(/\D/g, ''));
+  return Number.isFinite(v) ? v : null;
+}
+
+// Precio nuevo para un producto según lo elegido en la barra (null = todavía no hay cambio válido)
+function precioNuevo(p) {
+  const modo = $('modo').value, v = valorEscrito();
+  if (v === null) return null;
+  const r = Number($('redondeo').value) || 1;
+  const red = (x) => Math.max(0, Math.round(x / r) * r);
+  if (modo === 'fijo') return Math.max(0, Math.round(v));
+  if (!(p.precio > 0)) return null; // sin precio: no hay de dónde calcular
+  if (modo === 'subir%') return red(p.precio * (1 + v / 100));
+  if (modo === 'bajar%') return v >= 100 ? null : red(p.precio * (1 - v / 100));
+  if (modo === 'sumar') return red(p.precio + v);
+  if (modo === 'restar') return red(p.precio - v);
+  return null;
+}
+
+function cambiosPendientes() {
+  return productos.filter((p) => elegidos.has(p.id)).map((p) => ({ p, nuevo: precioNuevo(p) }))
+    .filter((c) => c.nuevo !== null && c.nuevo !== p_precio(c.p));
+}
+const p_precio = (p) => Number(p.precio) || 0;
+
+function pintarBarra() {
+  const n = elegidos.size, bar = $('masivo');
+  bar.hidden = !n; document.body.classList.toggle('con-masivo', !!n);
+  const vis = visibles(), marcados = vis.filter((p) => elegidos.has(p.id)).length;
+  $('todos').checked = vis.length > 0 && marcados === vis.length;
+  $('todos').indeterminate = marcados > 0 && marcados < vis.length;
+  $('todos-txt').textContent = $('buscar').value || $('f-cat').value ? `Seleccionar los ${vis.length} que se ven` : 'Seleccionar todos';
+  if (!n) return;
+  $('m-cant').textContent = n === 1 ? '1 seleccionado' : `${n} seleccionados`;
+  const modo = $('modo').value, pct = modo.endsWith('%');
+  $('valor').placeholder = modo === 'fijo' ? 'Ej: 18000' : pct ? 'Ej: 10' : 'Ej: 1000';
+  $('redondeo').hidden = modo === 'fijo';
+  const c = cambiosPendientes();
+  $('aplicar').disabled = !c.length;
+  $('aplicar').textContent = c.length ? `Cambiar ${c.length} precio${c.length > 1 ? 's' : ''}` : 'Aplicar';
+  const sinPrecio = productos.filter((p) => elegidos.has(p.id) && !(p.precio > 0)).length;
+  msg('m-masivo', modo !== 'fijo' && sinPrecio && valorEscrito() !== null ? `${sinPrecio} no tienen precio cargado y quedan igual.` : '');
+}
+
+function pintarTodo() { pintarLista(); pintarBarra(); }
+
 function pintarLista() {
   const l = $('lista'); l.replaceChildren();
   if (!productos.length) {
     const p = document.createElement('p'); p.textContent = 'Todavía no cargaste productos. Subí el primero arriba.'; p.style.fontWeight = '600'; l.append(p); return;
   }
-  productos.forEach((p) => {
-    const f = document.createElement('div'); f.className = 'fila';
+  const lista = visibles();
+  if (!lista.length) {
+    const p = document.createElement('p'); p.textContent = 'No hay productos que coincidan con la búsqueda.'; p.style.fontWeight = '600'; l.append(p); return;
+  }
+  lista.forEach((p) => {
+    const f = document.createElement('div'); f.className = 'fila' + (elegidos.has(p.id) ? ' sel' : '');
+    const lab = document.createElement('label');
+    const chk = document.createElement('input'); chk.type = 'checkbox'; chk.checked = elegidos.has(p.id);
+    chk.setAttribute('aria-label', 'Seleccionar ' + p.nombre);
+    chk.onchange = () => { if (chk.checked) elegidos.add(p.id); else elegidos.delete(p.id); pintarTodo(); };
     const img = document.createElement('img'); img.alt = '';
     if (p.imagen) img.src = p.imagen; else { img.src = '/img/mascota.svg'; img.className = 'vacia'; }
     const t = document.createElement('div');
     const b = document.createElement('b'); b.textContent = p.nombre;
     const s = document.createElement('small'); s.textContent = `${p.categoria} · ${p.precio > 0 ? peso.format(p.precio) : 'Sin precio'}${p.agotado ? ' · Agotado' : ''}`;
     t.append(b, s);
+    if (elegidos.has(p.id)) {
+      const n = precioNuevo(p);
+      if (n !== null && n !== p_precio(p)) { const x = document.createElement('span'); x.className = 'nuevo'; x.textContent = '→ ' + peso.format(n); t.append(document.createElement('br'), x); }
+    }
+    lab.append(chk, img, t);
     const acc = document.createElement('div'); acc.className = 'acc';
     const mk = (txt, fn, cls) => { const x = document.createElement('button'); x.type = 'button'; x.textContent = txt; if (cls) x.className = cls; x.onclick = fn; acc.append(x); };
     mk('Editar', () => editar(p));
     mk(p.agotado ? 'Hay stock' : 'Agotado', async () => { await api('/api/products/' + p.id, { method: 'PUT', body: { agotado: !p.agotado } }); cargar(); });
     mk('Borrar', async () => { if (confirm(`¿Borrar "${p.nombre}"? No se puede deshacer.`)) { await api('/api/products/' + p.id, { method: 'DELETE' }); cargar(); } }, 'borrar');
-    f.append(img, t, acc); l.append(f);
+    f.append(lab, acc); l.append(f);
   });
 }
+
+async function guardarPrecios(cambios) {
+  return api('/api/precios', { method: 'PUT', body: { cambios } });
+}
+
+$('aplicar').onclick = async () => {
+  const c = cambiosPendientes();
+  if (!c.length) return;
+  if (!confirm(`¿Cambiar el precio de ${c.length} producto${c.length > 1 ? 's' : ''}?`)) return;
+  const antes = c.map(({ p }) => ({ id: p.id, precio: p_precio(p) }));
+  $('aplicar').disabled = true;
+  try {
+    await guardarPrecios(c.map(({ p, nuevo }) => ({ id: p.id, precio: nuevo })));
+    elegidos.clear(); $('valor').value = '';
+    await cargar();
+    const m = $('m-lista'); m.className = 'msg';
+    m.textContent = `Listo: ${c.length} precio${c.length > 1 ? 's' : ''} actualizado${c.length > 1 ? 's' : ''}.`;
+    const d = document.createElement('button'); d.type = 'button'; d.className = 'deshacer'; d.textContent = 'Deshacer';
+    d.onclick = async () => {
+      d.disabled = true;
+      try { await guardarPrecios(antes); await cargar(); msg('m-lista', 'Volvieron los precios de antes.'); }
+      catch (er) { msg('m-lista', er.message, true); d.disabled = false; }
+    };
+    m.append(d);
+  } catch (er) { msg('m-masivo', er.message, true); $('aplicar').disabled = false; }
+};
+$('desel').onclick = () => { elegidos.clear(); pintarTodo(); };
+$('todos').onchange = () => {
+  const vis = visibles();
+  vis.forEach((p) => ($('todos').checked ? elegidos.add(p.id) : elegidos.delete(p.id)));
+  pintarTodo();
+};
+['buscar', 'f-cat'].forEach((id) => $(id).addEventListener('input', pintarTodo));
+['modo', 'valor', 'redondeo'].forEach((id) => $(id).addEventListener('input', pintarTodo));
+$('valor').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('aplicar').click(); });
+$('f-cat').append(...CATEGORIAS.map((c) => { const o = document.createElement('option'); o.textContent = c; return o; }));
 
 function editar(p) {
   editando = p.id; fotoNueva = '';
@@ -89,7 +197,8 @@ function editar(p) {
 
 async function cargar() {
   productos = await fetch('/api/products?t=' + Date.now()).then((r) => r.json());
-  pintarLista();
+  for (const id of elegidos) if (!productos.some((p) => p.id === id)) elegidos.delete(id); // se borró
+  pintarTodo();
   const c = await fetch('/api/config?t=' + Date.now()).then((r) => r.json());
   $('wa').value = c.whatsapp || '';
 }

@@ -52,6 +52,19 @@ export default async (req, context) => {
       await C.store().setJSON('config', conf);
       return C.json(200, conf);
     }
+    // Cambio de precios de muchos productos juntos: { cambios: [{ id, precio }] }
+    if (url === '/api/precios' && m === 'PUT') {
+      const { cambios } = await leerJson(req, 2e5);
+      if (!Array.isArray(cambios) || !cambios.length || cambios.length > 2000) return C.json(400, { error: 'No hay precios para cambiar' });
+      const lista = await C.productos(), porId = new Map(lista.map((p) => [p.id, p]));
+      let n = 0;
+      for (const c of cambios) {
+        const p = c && porId.get(c.id), v = Math.round(Number(c.precio));
+        if (p && Number.isFinite(v) && v >= 0) { p.precio = v; n++; }
+      }
+      await C.guardarProductos(lista);
+      return C.json(200, { ok: true, cambiados: n });
+    }
     if (url === '/api/products' && m === 'POST') {
       const d = await leerJson(req);
       let imagen = '';

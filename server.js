@@ -151,6 +151,19 @@ async function api(req, res, url) {
     guardar(F_CONF, conf);
     return json(res, 200, conf);
   }
+  // Cambio de precios de muchos productos juntos: { cambios: [{ id, precio }] }
+  if (url === '/api/precios' && m === 'PUT') {
+    const { cambios } = await body(req, 2e5);
+    if (!Array.isArray(cambios) || !cambios.length || cambios.length > 2000) return json(res, 400, { error: 'No hay precios para cambiar' });
+    const lista = leer(F_PROD, []), porId = new Map(lista.map((p) => [p.id, p]));
+    let n = 0;
+    for (const c of cambios) {
+      const p = c && porId.get(c.id), v = Math.round(Number(c.precio));
+      if (p && Number.isFinite(v) && v >= 0) { p.precio = v; n++; }
+    }
+    guardar(F_PROD, lista);
+    return json(res, 200, { ok: true, cambiados: n });
+  }
   if (url === '/api/products' && m === 'POST') {
     const d = await body(req);
     if (d.foto && !(d.foto = guardarFoto(d.foto))) return json(res, 400, { error: 'La foto no es válida (JPG, PNG o WebP, hasta 5 MB)' });
