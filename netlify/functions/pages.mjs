@@ -19,6 +19,7 @@ export default async (req) => {
 
   if (url === '/robots.txt') return C.texto(200, 'text/plain; charset=utf-8', seo.robots(base), cdn);
   if (url === '/sitemap.xml') { const c = await ctx(); return C.texto(200, 'application/xml; charset=utf-8', seo.sitemap(base, c.productos), cdn); }
+  if (url === '/google-merchant.xml') { const c = await ctx(); return C.texto(200, 'application/xml; charset=utf-8', seo.merchantFeed(base, c.productos), cdn); }
   const pm = /^\/p\/([a-z0-9-]+)\/?$/.exec(url);
   if (pm) {
     const c = await ctx(), p = c.productos.find((x) => x.slug === pm[1]);
@@ -34,5 +35,5 @@ export default async (req) => {
 };
 
 // Las rutas de colecciones tienen que coincidir con COLECCIONES en seo.js (Netlify necesita la lista escrita acá)
-export const config = { path: ['/', '/p/*', '/sitemap.xml', '/robots.txt',
+export const config = { path: ['/', '/p/*', '/sitemap.xml', '/robots.txt', '/google-merchant.xml',
   '/vapes-descartables', '/pods-descartables', '/elfbar', '/ignite', '/dinner-lady', '/the-black-sheep', '/perfumes', '/perfumes-arabes'] };

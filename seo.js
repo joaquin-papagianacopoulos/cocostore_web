@@ -279,6 +279,43 @@ function sitemap(base, productos) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${u.join('\n')}\n</urlset>\n`;
 }
 
+// ---------- Feed de Google Merchant Center (Google Shopping) ----------
+// Solo perfumes: Google Shopping prohíbe cigarrillos electrónicos, vapes y líquidos (política de productos de tabaco).
+// Merchant Center lo descarga solo desde /google-merchant.xml, así que los cambios del panel se pasan sin hacer nada.
+const MARCAS_PERFUME = [
+  [/lattafa|bade.?e al oud|yara|qaed al fursan|jasoor|noble blush/i, 'Lattafa'], [/hawas|rasasi/i, 'Rasasi'],
+  [/one million|1 million/i, 'Paco Rabanne'], [/la vie est belle/i, 'Lancôme'], [/jean paul gaultier|scandal/i, 'Jean Paul Gaultier'],
+  [/armani|stronger with you/i, 'Giorgio Armani'],
+];
+const marcaPerfume = (n) => (MARCAS_PERFUME.find(([r]) => r.test(n)) || [, NOMBRE])[1];
+const enFeed = (p) => p.categoria === 'Perfumes' && p.precio > 0 && p.imagen;
+
+function merchantFeed(base, productos) {
+  const limpio = (s) => String(s).replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').replace(/\s+/g, ' ').trim();
+  const items = productos.filter(enFeed).map((p) => {
+    const nombre = limpio(p.nombre), brand = marcaPerfume(nombre);
+    const titulo = /perfume/i.test(nombre) ? nombre : `Perfume ${nombre}${brand !== NOMBRE && !nombre.toLowerCase().includes(brand.toLowerCase()) ? ' – ' + brand : ''}`;
+    const desc = `${titulo}. Perfume original importado, sellado en su caja. Envío en el día en CABA y GBA y envíos a todo el país. ${NOMBRE}.`;
+    const campos = [
+      ['g:id', p.id], ['title', titulo.slice(0, 150)], ['description', desc], ['link', `${base}/p/${p.slug}`],
+      ['g:image_link', abs(base, p.imagen)], ['g:availability', p.agotado ? 'out_of_stock' : 'in_stock'],
+      ['g:price', `${Math.round(p.precio)}.00 ARS`], ['g:brand', brand], ['g:condition', 'new'],
+      ['g:identifier_exists', 'no'], ['g:google_product_category', '479'], ['g:product_type', 'Perfumes'],
+    ];
+    return `<item>\n${campos.map(([k, v]) => `  <${k}>${esc(v)}</${k}>`).join('\n')}\n</item>`;
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+<title>${NOMBRE}</title>
+<link>${base}/</link>
+<description>Perfumes importados originales</description>
+${items.join('\n')}
+</channel>
+</rss>
+`;
+}
+
 const robots = (base) => `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\nSitemap: ${base}/sitemap.xml\n`;
 
-module.exports = { conSlugs, home, producto, coleccion, COLECCIONES, noEncontrado, sitemap, robots };
+module.exports = { conSlugs, home, producto, coleccion, COLECCIONES, noEncontrado, sitemap, robots, merchantFeed };

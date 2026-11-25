@@ -210,6 +210,7 @@ http.createServer(async (req, res) => {
     const texto = (code, tipo, s) => { res.writeHead(code, cabeceras({ 'Content-Type': tipo, 'Cache-Control': 'no-cache' })); res.end(req.method === 'HEAD' ? undefined : s); };
     if (url === '/robots.txt') return texto(200, 'text/plain; charset=utf-8', seo.robots(baseUrl(req)));
     if (url === '/sitemap.xml') { const c = ctx(); return texto(200, 'application/xml; charset=utf-8', seo.sitemap(c.base, c.productos)); }
+    if (url === '/google-merchant.xml') { const c = ctx(); return texto(200, 'application/xml; charset=utf-8', seo.merchantFeed(c.base, c.productos)); }
     const pm = /^\/p\/([a-z0-9-]+)\/?$/.exec(url);
     if (pm) {
       const c = ctx(), p = c.productos.find((x) => x.slug === pm[1]);
